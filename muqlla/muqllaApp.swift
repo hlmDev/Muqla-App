@@ -11,7 +11,8 @@ import SwiftUI
 struct muqllaApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            KitSplash()
+                .preferredColorScheme(.dark)
         }
     }
 }
