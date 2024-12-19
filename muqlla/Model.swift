@@ -15,4 +15,13 @@ struct Book: Identifiable {
     let author: String
     let status: String
     let color: Color
+    
+}
+struct Novel: Identifiable {
+    let id: Int
+    let name: String
+    let date: String
+    let color: String
+
+    
 }

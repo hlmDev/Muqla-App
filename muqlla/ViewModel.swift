@@ -113,3 +113,15 @@ class BookViewModel: ObservableObject {
         }
     }
 }
+import Foundation
+class NovelViewModel: ObservableObject {
+    @Published var novels: [Novel] = [
+        Novel(id: 1, name: "Name", date: "2024-06-17", color: "purple"),
+        Novel(id: 2, name: "Name", date: "2024-06-18", color: "blue"),
+        Novel(id: 3, name: "Name", date: "2024-06-19", color: "purple")
+    ]
+    
+    func deleteNovel(id: Int) {
+        novels.removeAll { $0.id == id }
+    }
+}
