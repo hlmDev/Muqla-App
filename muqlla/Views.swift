@@ -121,7 +121,7 @@ struct HomePageView: View {
             .accessibilityHint("Write a new book")
 
             NavigationStack {
-                Text("Profile View")
+                NovelListView()
             }
             .tabItem {
                 Image(systemName: "person.circle.fill")

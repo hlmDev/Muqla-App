@@ -65,6 +65,15 @@
         }
       }
     },
+    "Book Date" : {
+
+    },
+    "Book Image" : {
+
+    },
+    "Book Name" : {
+
+    },
     "Book title" : {
       "localizations" : {
         "ar" : {
@@ -118,6 +127,9 @@
           }
         }
       }
+    },
+    "Collabs" : {
+
     },
     "Complete" : {
       "extractionState" : "manual",
@@ -203,6 +215,12 @@
         }
       }
     },
+    "Drafts" : {
+
+    },
+    "Edit" : {
+
+    },
     "Enter text to search for books" : {
 
     },
@@ -281,9 +299,6 @@
       }
     },
     "Profile tab" : {
-
-    },
-    "Profile View" : {
 
     },
     "Publish" : {

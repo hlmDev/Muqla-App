@@ -7,10 +7,11 @@
 
 import SwiftUI
 
+// MARK: - Main View (Novel List)
 struct NovelListView: View {
     @StateObject private var viewModel = NovelViewModel()
     @State private var selectedTab = 0
-    @State private var selectedNavIndex = 2// Tracks bottom bar selection
+    @State private var selectedNavIndex = 2 // Tracks bottom bar selection
     
     var body: some View {
         NavigationView {
@@ -49,27 +50,20 @@ struct TopTabsView: View {
         HStack(spacing: 12) {
             TabButton(title: "Drafts", isSelected: selectedTab == 0, selectedColor: .green, defaultColor: Color("dark g"))
                 .onTapGesture { selectedTab = 0 }
-                .accessibilityLabel("Drafts")  // Clear label
-                .accessibilityHint("Tap to view your drafts") // Additional context
-                .accessibilityAddTraits(.isButton) // Explicitly mark as a button
+                .accessibilityLabel("Drafts")
 
             TabButton(title: "Collabs", isSelected: selectedTab == 1, selectedColor: .green, defaultColor: Color("dark g"))
                 .onTapGesture { selectedTab = 1 }
-                .accessibilityLabel("Collabs") // Clear label
-                .accessibilityHint("Tap to view collaborations") // Additional context
-                .accessibilityAddTraits(.isButton) // Explicitly mark as a button
+                .accessibilityLabel("Collabs")
 
             TabButton(title: "Publish", isSelected: selectedTab == 2, selectedColor: .green, defaultColor: Color("dark g"))
                 .onTapGesture { selectedTab = 2 }
-                .accessibilityLabel("Publish") // Clear label
-                .accessibilityHint("Tap to publish content") // Additional context
-                .accessibilityAddTraits(.isButton) // Explicitly mark as a button
+                .accessibilityLabel("Publish")
         }
         .padding(.horizontal, 8)
         .padding(.top, 10)
     }
 }
-
 
 // MARK: - TabButton View
 struct TabButton: View {
@@ -113,47 +107,36 @@ struct NovelRowView: View {
                     .frame(width: 70, height: 90)
                     .cornerRadius(8)
                     .padding(.leading, 15)
-//                    .padding(.leading, 70)
-                    
                     .padding(.leading, selectedTab == 0 ? -25 : -25)
                     .padding(.leading, selectedTab != 2 ? 2 : -160)
                     .accessibilityLabel("Book Image")
-                
-
 
                 // Book Information
-                VStack/*(alignment: .leading, spacing: 10)*/ {
-                    
+                VStack {
                     Text(novel.name)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                        .padding(.top,-30)
+                        .padding(.top, -30)
                         .padding(.leading, selectedTab != 2 ? 2 : -100)
-//                        .padding(.leading, selectedTab == 2 ? 2 : -100)
-//                        .padding(.leading, -50)
                         .accessibilityLabel("Book Name")
                     Text(novel.date)
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .padding(.leading, selectedTab != 2 ? 2 : -90)
-//                        .padding(.leading, -20)
                         .accessibilityLabel("Book Date")
-                        
                 }
                 
-//                Spacer()
-                
-                HStack  {
-                    // Edit Button for Drafts and Collabs (Customized for Collabs)
-                    if selectedTab == 0 || selectedTab == 1  {
+                HStack {
+                    // Edit Button for Drafts and Collabs
+                    if selectedTab == 0 || selectedTab == 1 {
                         Button(action: { }) {
                             Text("Edit")
                                 .font(.body)
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
-                                .frame(width: selectedTab == 1 ? 180 : 100, height: 30) // Custom size for Collabs
-                                .background(Color.gray.opacity(0.8)) // Custom color for Collabs
+                                .frame(width: selectedTab == 1 ? 180 : 100, height: 30)
+                                .background(Color.gray.opacity(0.8))
                                 .cornerRadius(8)
                                 .padding(.top, 80)
                                 .padding(.leading, selectedTab == 0 ? -30 : -10)
@@ -163,7 +146,7 @@ struct NovelRowView: View {
                     }
                     
                     if selectedTab == 0 {
-                        Button(action: { deleteAction() }) { // Call deleteAction on tap
+                        Button(action: { deleteAction() }) {
                             Text("Delete")
                                 .font(.body)
                                 .fontWeight(.medium)
@@ -196,24 +179,32 @@ struct BottomNavBarView: View {
     
     var body: some View {
         ZStack {
-            HStack {
-                BottomNavButton(iconName: "house.fill", title: "Home", isSelected: selectedNavIndex == 0)
-                    .accessibilityLabel("Home")
-                                        .accessibilityAddTraits(.isButton)
-                    .onTapGesture { selectedNavIndex = 0 }
+            HStack (spacing: 85){
+                // Home Button with NavigationLink
+                NavigationLink(destination: HomePageView()) {
+                    BottomNavButton(iconName: "house.fill", title: "Home", isSelected: selectedNavIndex == 0)
+                        .accessibilityLabel("Home")
+                        .accessibilityAddTraits(.isButton)
+                      
+                }
                     
-                Spacer()
-                
-                BottomNavButton(iconName: "pencil", title: "Write", isSelected: selectedNavIndex == 1)
-                    .accessibilityLabel("Write")
-                    .accessibilityAddTraits(.isButton)
-                    .onTapGesture { selectedNavIndex = 1 }
+//                Spacer()
 
-                Spacer()
-                
+                // Write Button with NavigationLink
+                NavigationLink(destination: WriteBookView()) {
+                    BottomNavButton(iconName: "pencil", title: "Write", isSelected: selectedNavIndex == 1)
+                        .accessibilityLabel("Write")
+                        .accessibilityAddTraits(.isButton)
+                    
+
+                }
+
+//                Spacer()
+
+                // Profile Button
                 BottomNavButton(iconName: "person.crop.circle", title: "Profile", isSelected: selectedNavIndex == 2)
                     .accessibilityLabel("Profile")
-                                        .accessibilityAddTraits(.isButton)
+                    .accessibilityAddTraits(.isButton)
                     .onTapGesture { selectedNavIndex = 2 }
                     
             }
@@ -232,11 +223,9 @@ struct BottomNavButton: View {
             Image(systemName: iconName)
                 .font(.system(size: 24))
                 .foregroundColor(isSelected ? Color.green : Color.gray)
-//                .accessibilityLabel("\(title) icon")
             Text(title)
                 .font(.system(size: 12))
                 .foregroundColor(isSelected ? Color.white : Color.gray)
-//                .accessibilityLabel("\(title) button")
         }
         .padding(.top, 10)
     }
