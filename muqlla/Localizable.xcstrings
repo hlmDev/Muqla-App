@@ -53,7 +53,14 @@
 
     },
     "Author: %@" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الكاتب"
+          }
+        }
+      }
     },
     "Book content" : {
       "localizations" : {
@@ -61,6 +68,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "محتوى الكتاب"
+          }
+        }
+      }
+    },
+    "Book Date" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تاريخ الإنشاء"
+          }
+        }
+      }
+    },
+    "Book Image" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "غلاف الكتاب"
+          }
+        }
+      }
+    },
+    "Book Name" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عنوان الكتاب"
           }
         }
       }
@@ -96,7 +133,14 @@
       }
     },
     "Cancel writing" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إلغاء الكتابة"
+          }
+        }
+      }
     },
     "Co-write books with authors worldwide\nDiscover unique books born from collaboration." : {
       "localizations" : {
@@ -115,6 +159,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "شارك في كتابة الكتب مع مؤلفين من جميع أنحاء العالم\nاكتشف كتبًا فريدة وُلدت من روح التعاون."
+          }
+        }
+      }
+    },
+    "Collabs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعاون"
           }
         }
       }
@@ -203,8 +258,36 @@
         }
       }
     },
+    "Drafts" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسودة"
+          }
+        }
+      }
+    },
+    "Edit" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تعديل"
+          }
+        }
+      }
+    },
     "Enter text to search for books" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اضغط للبحث عن كتاب"
+          }
+        }
+      }
     },
     "Enter the title of your book" : {
       "localizations" : {
@@ -250,6 +333,12 @@
         }
       }
     },
+    "Key" : {
+      "extractionState" : "manual"
+    },
+    "Key 1" : {
+      "extractionState" : "manual"
+    },
     "No books found" : {
       "localizations" : {
         "ar" : {
@@ -283,9 +372,6 @@
     "Profile tab" : {
 
     },
-    "Profile View" : {
-
-    },
     "Publish" : {
       "localizations" : {
         "ar" : {
@@ -297,7 +383,14 @@
       }
     },
     "Publish book" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نشر الكتاب"
+          }
+        }
+      }
     },
     "Save to Draft" : {
       "localizations" : {
@@ -320,7 +413,14 @@
       }
     },
     "Search books" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بحث عن الكتاب "
+          }
+        }
+      }
     },
     "Select" : {
       "localizations" : {
@@ -392,10 +492,24 @@
       }
     },
     "View all books" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مشاهدة جميع الكتب"
+          }
+        }
+      }
     },
     "View your profile information" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مشاهدة معلومات الكتاب "
+          }
+        }
+      }
     },
     "Write" : {
       "localizations" : {

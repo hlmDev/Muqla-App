@@ -27,12 +27,12 @@ struct NovelListView: View {
                             })
                         }
                     }
-                    .padding(.top, 10)
+                   // .padding(.top, 10)
                 }
                 .background(Color.black)
                 
                 // Bottom Navigation Bar
-                BottomNavBarView(selectedNavIndex: $selectedNavIndex)
+               // BottomNavBarView(selectedNavIndex: $selectedNavIndex)
             }
             .navigationBarHidden(true)
             .background(Color.black)
@@ -47,49 +47,46 @@ struct TopTabsView: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            TabButton(title: "Drafts", isSelected: selectedTab == 0, selectedColor: .green, defaultColor: Color("dark g"))
+            TabButton(title: NSLocalizedString("Drafts", comment: "") , isSelected: selectedTab == 0, selectedColor: .green, defaultBackground: Image("darkgray"))
                 .onTapGesture { selectedTab = 0 }
-                .accessibilityLabel("Drafts")  // Clear label
-                .accessibilityHint("Tap to view your drafts") // Additional context
-                .accessibilityAddTraits(.isButton) // Explicitly mark as a button
 
-            TabButton(title: "Collabs", isSelected: selectedTab == 1, selectedColor: .green, defaultColor: Color("dark g"))
+            TabButton(title: NSLocalizedString("Collabs", comment: "") , isSelected: selectedTab == 1, selectedColor: .green, defaultBackground: Image("darkgray"))
                 .onTapGesture { selectedTab = 1 }
-                .accessibilityLabel("Collabs") // Clear label
-                .accessibilityHint("Tap to view collaborations") // Additional context
-                .accessibilityAddTraits(.isButton) // Explicitly mark as a button
 
-            TabButton(title: "Publish", isSelected: selectedTab == 2, selectedColor: .green, defaultColor: Color("dark g"))
+            TabButton(title: NSLocalizedString("Publish", comment: "") , isSelected: selectedTab == 2, selectedColor: .green, defaultBackground: Image("darkgray"))
                 .onTapGesture { selectedTab = 2 }
-                .accessibilityLabel("Publish") // Clear label
-                .accessibilityHint("Tap to publish content") // Additional context
-                .accessibilityAddTraits(.isButton) // Explicitly mark as a button
         }
-        .padding(.horizontal, 8)
-        .padding(.top, 10)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
     }
 }
 
 
 // MARK: - TabButton View
 struct TabButton: View {
-    let title: String
-    let isSelected: Bool
-    let selectedColor: Color
-    let defaultColor: Color
+    var title: String
+    var isSelected: Bool
+    var selectedColor: Color
+    var defaultBackground: Image
 
     var body: some View {
         Text(title)
-            .font(.system(size: 14, weight: .medium))
-            .foregroundColor(isSelected ? .black : .white)
-            .padding(.horizontal, 20)
-            .padding(.vertical, 10)
-            .background(isSelected ? selectedColor : defaultColor)
-            .cornerRadius(15)
-            .overlay(
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(isSelected ? selectedColor : .clear, lineWidth: 2)
+            .fontWeight(.medium)
+            .foregroundColor(isSelected ? .white : .primary) // White text for selected, primary for unselected
+            .padding(.horizontal, 20) // Adjust horizontal padding
+            .padding(.vertical, 10)   // Adjust vertical padding
+            .background(
+                ZStack {
+                    if isSelected {
+                        selectedColor // Green background for selected
+                    } else {
+                        defaultBackground
+                            .resizable()
+                            .scaledToFill() // Ensure the image fills the space
+                    }
+                }
             )
+            .clipShape(Capsule()) // Rounded pill shape
     }
 }
 
@@ -103,7 +100,7 @@ struct NovelRowView: View {
         ZStack {
             // Background Box
             RoundedRectangle(cornerRadius: 10)
-                .fill(Color("dark g2"))
+                .fill(Color("darkgrayy"))
                 .frame(width: 375.0, height: 128)
             
             HStack {
@@ -133,7 +130,7 @@ struct NovelRowView: View {
 //                        .padding(.leading, selectedTab == 2 ? 2 : -100)
 //                        .padding(.leading, -50)
                         .accessibilityLabel("Book Name")
-                    Text(novel.date)
+                    Text(Date(), style: .date)
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .padding(.leading, selectedTab != 2 ? 2 : -90)
@@ -145,7 +142,7 @@ struct NovelRowView: View {
 //                Spacer()
                 
                 HStack  {
-                    // Edit Button for Drafts and Collabs (Customized for Collabs)
+                 
                     if selectedTab == 0 || selectedTab == 1  {
                         Button(action: { }) {
                             Text("Edit")
@@ -191,7 +188,7 @@ struct NovelRowView: View {
 }
 
 // MARK: - Bottom Navigation Bar
-struct BottomNavBarView: View {
+/*struct BottomNavBarView: View {
     @Binding var selectedNavIndex: Int
     
     var body: some View {
@@ -241,7 +238,7 @@ struct BottomNavButton: View {
         .padding(.top, 10)
     }
 }
-
+*/
 // MARK: - Preview
 struct NovelListView_Previews: PreviewProvider {
     static var previews: some View {

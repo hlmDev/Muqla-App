@@ -2,6 +2,10 @@
 // muqlla
 // Created by Ahlam Majed on 19/12/2024.
 
+// Views.swift
+// muqlla
+// Created by Ahlam Majed on 19/12/2024.
+
 import SwiftUICore
 import SwiftUI
 import _AuthenticationServices_SwiftUI
@@ -95,6 +99,8 @@ struct KitSplash: View {
 struct HomePageView: View {
     @StateObject private var bookVM = BookViewModel()
     @State private var selectedTab = "home"
+    @State private var profVM = NovelListView()
+
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -121,7 +127,7 @@ struct HomePageView: View {
             .accessibilityHint("Write a new book")
 
             NavigationStack {
-                Text("Profile View")
+                NovelListView()
             }
             .tabItem {
                 Image(systemName: "person.circle.fill")
@@ -234,11 +240,11 @@ struct WriteBookView: View {
     @State private var showCancelDialog = false
 
     var body: some View {
-        NavigationView {
+        
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
                 
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 15) {
                     TextField("Title", text: $title)
                         .font(.title2)
                         .foregroundColor(.white)
@@ -267,14 +273,15 @@ struct WriteBookView: View {
                             Text("Type your Book..")
                                 .foregroundColor(.gray)
                                 .padding(.leading, 20)
-                                .padding(.top, 8)
+                                .padding(.top, 24)
                                 .accessibility(hidden: true)
                         }
                     }
-                    .frame(height: 250)
+                  //  .frame(height: 250)
                     
                     Spacer()
                 }
+                .padding(.top)
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -314,4 +321,4 @@ struct WriteBookView: View {
             }
         }
     }
-}
+
