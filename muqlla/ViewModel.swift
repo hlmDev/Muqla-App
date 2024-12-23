@@ -5,19 +5,24 @@
 //  Created by Ahlam Majed on 19/12/2024.
 //
 
+
 import Foundation
 import CloudKit
 import AuthenticationServices
 
 class CloudKitUserViewModel: ObservableObject {
     private let container = CKContainer(identifier: "iCloud.com.a.muqlla")
+    private let userKey = "userSignedIn" // Key to track if user has signed in before
 
     @Published var permissionStatus: Bool = false
     @Published var isSignedInToiCloud: Bool = false
     @Published var error: String = ""
     @Published var userName: String = ""
+    @Published var isNewUser: Bool
 
     init() {
+        // Check if user has signed in before
+        self.isNewUser = !UserDefaults.standard.bool(forKey: userKey)
         getiCloudUser()
     }
 
@@ -87,12 +92,21 @@ class CloudKitUserViewModel: ObservableObject {
                     print("Error saving to CloudKit: \(error)")
                 } else {
                     print("Successfully saved user to CloudKit")
+                    // Mark user as signed in
+                    UserDefaults.standard.set(true, forKey: self?.userKey ?? "")
+                    self?.isNewUser = false
                 }
             }
         }
     }
+
+    // Function to check if user is signed in
+    func checkUserSignInStatus() -> Bool {
+        return !isNewUser
+    }
 }
 
+// Rest of your ViewModels remain the same
 class BookViewModel: ObservableObject {
     @Published var books: [Book] = [
         Book(title: "Wish I Were My Alter Ego", author: "Alanoud Alsamil", status: "Incomplete", color: .blue),
@@ -113,7 +127,7 @@ class BookViewModel: ObservableObject {
         }
     }
 }
-import Foundation
+
 class NovelViewModel: ObservableObject {
     @Published var novels: [Novel] = [
         Novel(id: 1, name: "Name", date: "2024-06-17", color: "purple"),
