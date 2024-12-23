@@ -7,11 +7,10 @@
 
 import SwiftUI
 
-// MARK: - Main View (Novel List)
 struct NovelListView: View {
     @StateObject private var viewModel = NovelViewModel()
     @State private var selectedTab = 0
-    @State private var selectedNavIndex = 2 // Tracks bottom bar selection
+    @State private var selectedNavIndex = 2// Tracks bottom bar selection
     
     var body: some View {
         NavigationView {
@@ -51,24 +50,17 @@ struct TopTabsView: View {
             TabButton(title: NSLocalizedString("Drafts", comment: "") , isSelected: selectedTab == 0, selectedColor: .green, defaultBackground: Image("darkgray"))
                 .onTapGesture { selectedTab = 0 }
 
-                .accessibilityLabel("Drafts")
-
             TabButton(title: NSLocalizedString("Collabs", comment: "") , isSelected: selectedTab == 1, selectedColor: .green, defaultBackground: Image("darkgray"))
                 .onTapGesture { selectedTab = 1 }
 
-                .accessibilityLabel("Collabs")
-
-
             TabButton(title: NSLocalizedString("Publish", comment: "") , isSelected: selectedTab == 2, selectedColor: .green, defaultBackground: Image("darkgray"))
                 .onTapGesture { selectedTab = 2 }
-
-                .accessibilityLabel("Publish")
-
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
     }
 }
+
 
 // MARK: - TabButton View
 struct TabButton: View {
@@ -118,30 +110,35 @@ struct NovelRowView: View {
                     .frame(width: 70, height: 90)
                     .cornerRadius(8)
                     .padding(.leading, 15)
+//                    .padding(.leading, 70)
+                    
                     .padding(.leading, selectedTab == 0 ? -25 : -25)
                     .padding(.leading, selectedTab != 2 ? 2 : -160)
                     .accessibilityLabel("Book Image")
+                
+
 
                 // Book Information
-                VStack {
+                VStack/*(alignment: .leading, spacing: 10)*/ {
+                    
                     Text(novel.name)
                         .font(.headline)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                        .padding(.top, -30)
+                        .padding(.top,-30)
                         .padding(.leading, selectedTab != 2 ? 2 : -100)
+//                        .padding(.leading, selectedTab == 2 ? 2 : -100)
+//                        .padding(.leading, -50)
                         .accessibilityLabel("Book Name")
                     Text(Date(), style: .date)
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .padding(.leading, selectedTab != 2 ? 2 : -90)
+//                        .padding(.leading, -20)
                         .accessibilityLabel("Book Date")
+                        
                 }
                 
-
-                HStack {
-                    // Edit Button for Drafts and Collabs
-                    if selectedTab == 0 || selectedTab == 1 {
 //                Spacer()
                 
                 HStack  {
@@ -152,8 +149,8 @@ struct NovelRowView: View {
                                 .font(.body)
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
-                                .frame(width: selectedTab == 1 ? 180 : 100, height: 30)
-                                .background(Color.gray.opacity(0.8))
+                                .frame(width: selectedTab == 1 ? 180 : 100, height: 30) // Custom size for Collabs
+                                .background(Color.gray.opacity(0.8)) // Custom color for Collabs
                                 .cornerRadius(8)
                                 .padding(.top, 80)
                                 .padding(.leading, selectedTab == 0 ? -30 : -10)
@@ -163,7 +160,7 @@ struct NovelRowView: View {
                     }
                     
                     if selectedTab == 0 {
-                        Button(action: { deleteAction() }) {
+                        Button(action: { deleteAction() }) { // Call deleteAction on tap
                             Text("Delete")
                                 .font(.body)
                                 .fontWeight(.medium)
@@ -196,32 +193,24 @@ struct NovelRowView: View {
     
     var body: some View {
         ZStack {
-            HStack (spacing: 85){
-                // Home Button with NavigationLink
-                NavigationLink(destination: HomePageView()) {
-                    BottomNavButton(iconName: "house.fill", title: "Home", isSelected: selectedNavIndex == 0)
-                        .accessibilityLabel("Home")
-                        .accessibilityAddTraits(.isButton)
-                      
-                }
+            HStack {
+                BottomNavButton(iconName: "house.fill", title: "Home", isSelected: selectedNavIndex == 0)
+                    .accessibilityLabel("Home")
+                                        .accessibilityAddTraits(.isButton)
+                    .onTapGesture { selectedNavIndex = 0 }
                     
-//                Spacer()
+                Spacer()
+                
+                BottomNavButton(iconName: "pencil", title: "Write", isSelected: selectedNavIndex == 1)
+                    .accessibilityLabel("Write")
+                    .accessibilityAddTraits(.isButton)
+                    .onTapGesture { selectedNavIndex = 1 }
 
-                // Write Button with NavigationLink
-                NavigationLink(destination: WriteBookView()) {
-                    BottomNavButton(iconName: "pencil", title: "Write", isSelected: selectedNavIndex == 1)
-                        .accessibilityLabel("Write")
-                        .accessibilityAddTraits(.isButton)
-                    
-
-                }
-
-//                Spacer()
-
-                // Profile Button
+                Spacer()
+                
                 BottomNavButton(iconName: "person.crop.circle", title: "Profile", isSelected: selectedNavIndex == 2)
                     .accessibilityLabel("Profile")
-                    .accessibilityAddTraits(.isButton)
+                                        .accessibilityAddTraits(.isButton)
                     .onTapGesture { selectedNavIndex = 2 }
                     
             }
@@ -240,9 +229,11 @@ struct BottomNavButton: View {
             Image(systemName: iconName)
                 .font(.system(size: 24))
                 .foregroundColor(isSelected ? Color.green : Color.gray)
+//                .accessibilityLabel("\(title) icon")
             Text(title)
                 .font(.system(size: 12))
                 .foregroundColor(isSelected ? Color.white : Color.gray)
+//                .accessibilityLabel("\(title) button")
         }
         .padding(.top, 10)
     }

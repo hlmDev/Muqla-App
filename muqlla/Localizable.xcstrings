@@ -73,15 +73,6 @@
       }
     },
     "Book Date" : {
-
-
-    },
-    "Book Image" : {
-
-    },
-    "Book Name" : {
-
-
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -110,7 +101,6 @@
           }
         }
       }
-
     },
     "Book title" : {
       "localizations" : {
@@ -174,7 +164,6 @@
       }
     },
     "Collabs" : {
-
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
@@ -184,7 +173,6 @@
           }
         }
       }
-
     },
     "Complete" : {
       "extractionState" : "manual",
@@ -271,12 +259,6 @@
       }
     },
     "Drafts" : {
-
-
-    },
-    "Edit" : {
-
-
       "extractionState" : "manual",
       "localizations" : {
         "ar" : {
@@ -296,7 +278,6 @@
           }
         }
       }
-
     },
     "Enter text to search for books" : {
       "localizations" : {
