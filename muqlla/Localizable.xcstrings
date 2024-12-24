@@ -73,6 +73,7 @@
       }
     },
     "Book Date" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -83,6 +84,7 @@
       }
     },
     "Book Image" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -93,6 +95,7 @@
       }
     },
     "Book Name" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
