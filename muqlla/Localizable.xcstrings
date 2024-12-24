@@ -1,6 +1,20 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    " Explore the legacy of Alfred Marshall, a pioneer of the neoclassical school of economics.\n                             This book highlights his groundbreaking ideas on utility, supply, and demand, as well as his efforts to make economics accessible. Marshall’s work shaped modern economic thought, emphasizing individual behavior and its influence on production, costs, and market value. A must-read for understanding the foundations of contemporary economics." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استكشف إرث ألفريد مارشال، رائد المدرسة النيوكلاسيكية في علم الاقتصاد.\nيسلط هذا الكتاب الضوء على أفكاره الرائدة حول المنفعة والعرض والطلب، بالإضافة إلى جهوده لجعل علم الاقتصاد أكثر سهولة واستيعابًا.\n\nساهمت أعمال مارشال في تشكيل الفكر الاقتصادي الحديث، حيث ركزت على السلوك الفردي وتأثيره على الإنتاج والتكاليف وقيمة السوق.\n\nقراءة لا غنى عنها لفهم أسس علم الاقتصاد المعاصر."
+          }
+        }
+      }
+    },
+    " Wish I Were My Alter Ego" : {
+
+    },
     "%@ by %@" : {
       "localizations" : {
         "en" : {
@@ -14,12 +28,90 @@
     "%@ filter" : {
 
     },
+    "★★★☆☆" : {
+
+    },
+    "5" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "٥"
+          }
+        }
+      }
+    },
+    "10.7K Readers" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "١٠.٧ الآف قارى"
+          }
+        }
+      }
+    },
+    "10.7K Readers   " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "١٠.٧ الآف قارئ"
+          }
+        }
+      }
+    },
+    "644" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "٦٤٤"
+          }
+        }
+      }
+    },
+    "2025/1/1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "٢٠٢٥/١/١"
+          }
+        }
+      }
+    },
+    "2025\\1 JAN" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "٢٠٢٥ ١/١"
+          }
+        }
+      }
+    },
     "Add a title first" : {
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "أضف العنوان أولاً"
+          }
+        }
+      }
+    },
+    "Alanoud Alsamil" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "العنود الصامل"
           }
         }
       }
@@ -52,12 +144,66 @@
     "App logo pp logo An artistic drawing of an eye with a pencil" : {
 
     },
+    "Author" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المؤلف"
+          }
+        }
+      }
+    },
+    "Author:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المؤلف"
+          }
+        }
+      }
+    },
+    "Author: " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المؤلف"
+          }
+        }
+      }
+    },
     "Author: %@" : {
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "الكاتب"
+          }
+        }
+      }
+    },
+    "Back" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رجوع"
+          }
+        }
+      }
+    },
+    "Back  " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رجوع"
           }
         }
       }
@@ -79,6 +225,38 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "تاريخ الإنشاء"
+          }
+        }
+      }
+    },
+    "Book Description" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ملخص الكتاب "
+          }
+        }
+      }
+    },
+    "Book Description " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ملخص الكتاب "
+          }
+        }
+      }
+    },
+    "Book Description  " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ملخص الكتاب"
           }
         }
       }
@@ -115,6 +293,16 @@
         }
       }
     },
+    "by" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بواسطة"
+          }
+        }
+      }
+    },
     "By %@" : {
       "localizations" : {
         "ar" : {
@@ -141,6 +329,49 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "إلغاء الكتابة"
+          }
+        }
+      }
+    },
+    "CATEGORY" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التصنيف"
+          }
+        }
+      }
+    },
+    "Chapter 1: The Method of the Alter Ego" : {
+
+    },
+    "Chapter 2: Defining the Alter Ego" : {
+
+    },
+    "Chapter 3: The Benefits of an Alter Ego" : {
+
+    },
+    "Chapter 4: Developing Your Alter Ego" : {
+
+    },
+    "Chapter 5: Expressing Your Alter Ego" : {
+
+    },
+    "Chapter 6: Steps to Becoming Your Alter Ego" : {
+
+    },
+    "Chapter 7: The Invention Process" : {
+
+    },
+    "Co-authors:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المؤلفون المشاركون"
           }
         }
       }
@@ -188,6 +419,12 @@
         }
       }
     },
+    "Conclusion" : {
+
+    },
+    "Creating an alter ego can be especially beneficial if you:\n• Struggle to embody your desired version of self consistently.\n\n• Feel overwhelmed by societal expectations or personal insecurities.\n\n• Want to express yourself in a way that feels authentic yet diGerent from your usual\npersona. An alter ego acts as a bridge between who you are and who you wish to\nbecome. It provides a safe space for experimentation, reduces anxiety, and boosts\nconfidence. By thinking and acting as your alter ego, you naturally overcome mental\nbarriers and limitations." : {
+
+    },
     "Creation date" : {
       "localizations" : {
         "ar" : {
@@ -207,6 +444,9 @@
           }
         }
       }
+    },
+    "Description: " : {
+
     },
     "Dismiss error" : {
       "localizations" : {
@@ -282,6 +522,17 @@
         }
       }
     },
+    "English" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الإنجليزية"
+          }
+        }
+      }
+    },
     "Enter text to search for books" : {
       "localizations" : {
         "ar" : {
@@ -312,6 +563,15 @@
         }
       }
     },
+    "Explore the legacy of Alfred Marshall, a pioneer of the neoclassical school of economics.\nThis book highlights his groundbreaking ideas on utility, supply, and demand, as well as his efforts to make economics accessible. Marshall’s work shaped modern economic thought, emphasizing individual behavior and its influence on production, costs, and market value. A must-read for understanding the foundations of contemporary economics." : {
+
+    },
+    "Having an alter ego is one thing; living as them is another. The key to fully embracing your\nalter ego is to let them “take over” in moments where their strengths are needed. When\nfaced with a decision, ask yourself:\n\n• What would they do?\n• How would they respond?\n• What would they choose?\n\nLet them live through you, using your body as their vessel. This practice helps you integrate\ntheir qualities into your life, enabling growth and transformation." : {
+
+    },
+    "Here’s a quick guide to help you embody your alter ego:\n\n1.Appearance: Match their hairstyle, clothing, and posture.\n2.Personality: Adopt their social traits, humor, or mystery.\n3.Mindset: Embrace positivity, resilience, or abundance.\n4.Habits: Implement routines like workouts, healthy eating, or meditation.\n5.Social Circle: Surround yourself with supportive, inspiring individuals.\n6.Actionable Steps: Start small—take walks, try new activities, or journal as your\nalter ego." : {
+
+    },
     "Home" : {
       "localizations" : {
         "ar" : {
@@ -336,11 +596,61 @@
         }
       }
     },
+    "Introduction" : {
+
+    },
     "Key" : {
       "extractionState" : "manual"
     },
     "Key 1" : {
       "extractionState" : "manual"
+    },
+    "Key 2" : {
+      "extractionState" : "manual"
+    },
+    "Key 3" : {
+      "extractionState" : "manual"
+    },
+    "Key 4" : {
+      "extractionState" : "manual"
+    },
+    "Key 5" : {
+      "extractionState" : "manual"
+    },
+    "Key 6" : {
+      "extractionState" : "manual"
+    },
+    "Key 7" : {
+      "extractionState" : "manual"
+    },
+    "Key 8" : {
+      "extractionState" : "manual"
+    },
+    "Key 9" : {
+      "extractionState" : "manual"
+    },
+    "Key 10" : {
+      "extractionState" : "manual"
+    },
+    "Key 11" : {
+      "extractionState" : "manual"
+    },
+    "Key 12" : {
+      "extractionState" : "manual"
+    },
+    "LANGUAGE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اللغة"
+          }
+        }
+      }
+    },
+    "Many famous individuals have embraced the concept of an alter ego to extend their self-\nimage and create a persona that complements or contrasts with their original selves. For\nexample, Jennifer Lopez has “Lola,” Eminem has “Slim Shady,” and Mariah Carey has\n“Mimi.” These personas allow them to express facets of themselves they might not feel\ncomfortable showcasing otherwise.\n\nAn alter ego serves as a means to transcend limitations and embody a version of yourself\nthat resonates with your goals and desires. It’s a method of manifestation—becoming\nsomeone you aspire to be." : {
+
     },
     "No books found" : {
       "localizations" : {
@@ -352,12 +662,37 @@
         }
       }
     },
+    "Now, let’s bring your alter ego to life:\n\n1. Give them a name: Choose a name that resonates with their identity.\n2. Define their personality: Who are they, and how do they behave?\n3. Create their story: What is their background, motivation, and purpose?\n4. Establish their goals: What do they aim to achieve?\n5. Live as them: Let them inspire you to act, think, and grow in new ways." : {
+
+    },
     "OK" : {
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "حسنا"
+          }
+        }
+      }
+    },
+    "PAGES" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الصفحات "
+          }
+        }
+      }
+    },
+    "PARTS" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الاجزاء"
           }
         }
       }
@@ -391,6 +726,42 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "نشر الكتاب"
+          }
+        }
+      }
+    },
+    "Pycology" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "علم النفس"
+          }
+        }
+      }
+    },
+    "Reading" : {
+
+    },
+    "Reem, Shahad, Ahlam" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ريم ، شهد ، احلام"
+          }
+        }
+      }
+    },
+    "RELEASED" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الإصدار"
           }
         }
       }
@@ -454,6 +825,29 @@
     "Skip onboarding" : {
 
     },
+    "Start New Chapter" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ابدأ فصلًا جديدًا"
+          }
+        }
+      }
+    },
+    "Start Reading" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ابدآ القراءة"
+          }
+        }
+      }
+    },
+    "Start Reading  " : {
+      "extractionState" : "manual"
+    },
     "Status: %@" : {
 
     },
@@ -471,6 +865,12 @@
     "Step into a world of endless stories. Co-write books with authors worldwide. Discover unique books born from collaboration." : {
 
     },
+    "The concept of an alter ego has fascinated psychologists, writers, and individuals for\ndecades. At its core, it represents the duality of human nature—the instinctual self (id), the\nrealistic self (ego), and the ideal self (superego)—as posited by psychoanalytic theory.\nThese layers often exist in harmony or conflict, shaping our identity. However, in a modern\nsense, the alter ego has transcended psychology and become a tool for transformation,\nself-expression, and empowerment.\n\nThrough this book, we will explore how creating and embodying an alter ego can help\nindividuals navigate challenges, enhance confidence, and unlock hidden potential. By\nunderstanding the structure and purpose of an alter ego, we can take deliberate steps to\ndesign one that aligns with our aspirations." : {
+
+    },
+    "The term “alter ego” originates from Latin, meaning “other I.” It refers to a secondary self, an\nalternative personality that is distinct from one’s original identity. This alter ego can\nembody characteristics you admire, qualities you wish to develop, or traits that your\ncurrent self may lack.\n\nIn manifestation terms, your alter ego is simply a diGerent concept of self or a state of mind\nthat you can embody or identify with. It is not bound by your limitations; instead, it’s\nshaped by your aspirations." : {
+
+    },
     "Title" : {
       "localizations" : {
         "ar" : {
@@ -482,6 +882,9 @@
       }
     },
     "Title: %@" : {
+
+    },
+    "To develop your alter ego, you need to engage in a deliberate process of creation and\nembodiment. This involves several steps:\n\n1. Visualizing Your Alter Ego\n• How do they look? Consider their hairstyle, clothing, posture, and overall\nappearance.\n• What is their personality? Are they social, mysterious, funny, or\ncharismatic?\n• What is their mindset? Do they embrace positivity, resilience, or\nabundance?\n• What are their habits? Think of their routines—workouts, healthy eating, or\nsleep schedules.\n• Who do they surround themselves with? Do they interact with ambitious,\nkind, and supportive people?\n\n2. Taking Action to Embody Them\n• Change aspects of your appearance, such as your wardrobe or body\nlanguage, to align with their image.\n• Cultivate their personality traits by practicing how they would interact with\nothers.\n• Shift your mindset to match their beliefs and outlook on life.\n• Incorporate their habits into your routine, such as starting a fitness regimen\nor journaling.\n• Surround yourself with people who reflect the values of your alter ego.\n\n3. Becoming Your Alter Ego\n• Reflect on your progress and adjust as needed.\n• Embody your alter ego in specific situations where you need their traits most.\n• Let your alter ego guide you in decision-making and actions." : {
 
     },
     "Type your Book.." : {
@@ -514,6 +917,22 @@
         }
       }
     },
+    "What if you could become a version of yourself that’s more confident, capable, and\nunstoppable? In Wish I Were My Alter Ego, we explore the fascinating concept of creating\nand embodying a secondary self—a persona that allows you to break free from limitations,\nexpress hidden sides of yourself, and step boldly into the life you’ve always dreamed of.\n\nDrawing on psychology, manifestation techniques, and practical steps, this book guides\nyou through the journey of inventing and living as your alter ego. From defining their\npersonality, habits, and mindset to learning how to embody them in your everyday life,\nyou’ll discover how to transform self-doubt into self-empowerment.\n\nPacked with real-world examples, inspiring insights, and actionable strategies, Wish I Were\nMy Alter Ego oGers you the ultimate blueprint to unleash your potential and redefine your\nidentity—on your terms. Who will your alter ego be, and how will they change your life? It’s\ntime to find out." : {
+
+    },
+    "Wish I Were My Alter Ego" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ليتني كنت ذاتي الأخرى"
+          }
+        }
+      }
+    },
+    "Wish I Were My Alter Ego   " : {
+      "extractionState" : "manual"
+    },
     "Write" : {
       "localizations" : {
         "ar" : {
@@ -539,6 +958,9 @@
           }
         }
       }
+    },
+    "Your alter ego is not a mask to hide behind; it’s a tool to empower you. It’s an extension of\nwho you are and a guide to who you can become. By embracing this alternate self, you\nunlock new possibilities, challenge limitations, and cultivate the best version of yourself.\n\nLet your alter ego take the lead and discover the treasures within you waiting to shine." : {
+
     }
   },
   "version" : "1.0"
