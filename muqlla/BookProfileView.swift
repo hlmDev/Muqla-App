@@ -1,20 +1,16 @@
-//
-//  BookProfileView.swift
-//  muqlla
-//
-//  Created by Alshaimaa on 23/06/1446 AH.
-//
 import SwiftUI
+
 struct BookProfileView: View {
-var body: some View {
-NavigationView {
+    @State private var navigateToHome = false
+
+    var body: some View {
+        NavigationView {
             ScrollView(.vertical, showsIndicators: true) {
                 VStack {
-                    // العنوان العلوي
+                    // Top Header with Back Button
                     HStack {
                         Button(action: {
-                            // الإجراء عند الضغط على زر الرجوع
-                            print("Back button tapped!")
+                            navigateToHome = true
                         }) {
                             Text("Back")
                                 .foregroundColor(.white)
@@ -23,52 +19,51 @@ NavigationView {
                     }
                     .padding()
                     .background(Color.black)
-                    // صورة الكتاب والعنوان
+                    
+                    // Book Image and Title Section
                     VStack {
-                        Rectangle() 
-                            .fill(Color.bookcolor)
+                        Rectangle()
+                            .fill(Color.bookcolor) // Ensure Color.bookcolor is defined
                             .frame(width: 200, height: 300)
                             .overlay(
                                 VStack {
-                                    Spacer().frame(height: 40) // مسافة فارغة صغيرة بين النصوص
+                                    Spacer().frame(height: 40)
                                     Text("Wish I Were My Alter Ego")
                                         .font(.title2)
                                         .bold()
                                         .multilineTextAlignment(.center)
                                         .foregroundColor(.white)
-                                    Spacer().frame(height: 30) // مسافة فارغة صغيرة بين النصوص
+                                    Spacer().frame(height: 30)
                                     Text("by")
                                         .foregroundColor(.white)
-                                    Spacer().frame(height: 20) // مسافة فارغة صغيرة بين النصوص
+                                    Spacer().frame(height: 20)
                                     Text("Alanoud Alsamil")
                                         .bold()
                                         .foregroundColor(.white)
-                                    Spacer() // يدفع باقي المحتوى إلى الأسفل
+                                    Spacer()
                                     
                                     HStack {
                                         Text("Incomplete")
                                             .foregroundColor(.white)
-                                            .padding(.leading) // مسافة على اليسار
-                                        Spacer() // يدفع النص إلى الزاوية اليسرى
+                                            .padding(.leading)
+                                        Spacer()
                                     }
                                 }
-                                .padding() // مسافة داخلية لتجنب الالتصاق بالحواف
+                                .padding()
                             )
-                    }  .padding(.top)
-                    
-                    // تفاصيل الكتاب
-                    VStack(alignment: .leading, spacing: 8) {
-                        // استخدام InfoRow
-                        InfoRow(label:NSLocalizedString( "Author:", comment: ""),
-                                value: NSLocalizedString("Alanoud Alsamil", comment: ""))
-                        InfoRow(label:NSLocalizedString("Co-authors:", comment: ""),
-                                value: NSLocalizedString("Reem, Shahad, Ahlam", comment: ""))
                     }
                     .padding(.top)
-
-                    // Add a separator between the two sections
+                    
+                    // Book Details Section
+                    VStack(alignment: .leading, spacing: 8) {
+                        InfoRow(label: NSLocalizedString("Author:", comment: ""), value: NSLocalizedString("Alanoud Alsamil", comment: ""))
+                        InfoRow(label: NSLocalizedString("Co-authors:", comment: ""), value: NSLocalizedString("Reem, Shahad, Ahlam", comment: ""))
+                    }
+                    .padding(.top)
+                    
                     Divider()
-
+                    
+                    // Ratings and Reader Count Section
                     HStack {
                         Text("★★★☆☆")
                         Text("10.7K Readers")
@@ -78,36 +73,36 @@ NavigationView {
                     .frame(maxWidth: .infinity)
                     .multilineTextAlignment(.center)
                     .padding(.bottom)
-                    // زر "Start Reading" للتنقل إلى صفحة المحتوى
+                    
+                    // Start Reading Button
                     NavigationLink(destination: BookContentView()) {
-                        
+                       
                         Text("Start Reading")
                             .bold()
-                            .font(.system(size: 20)) // Adjust font size if needed
-                            .padding(.vertical, 15)  // Keep the vertical padding for height
-                            .padding(.horizontal, 115)  // Reduce horizontal padding to make the button narrower
-                            .background(Color.btncolor) // Your desired background color
+                            .font(.system(size: 20))
+                            .padding(.vertical, 15)
+                            .padding(.horizontal, 115)
+                            .background(Color.btncolor) // Ensure Color.btncolor is defined
                             .foregroundColor(.white)
                             .cornerRadius(25)
-
                     }
                     .padding(.horizontal)
                     
                     Spacer()
                     
-                    // زر "Start a new chapter"
+                    // Start New Chapter Button
                     BookActionButton()
                         .padding(.bottom, 2)
                         .padding(.horizontal)
                     
-                    // تفاصيل إضافية
+                    // Additional Book Details Section (Horizontal Scroll)
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 32) {
-                            DetailColumnView(title:NSLocalizedString( "PAGES", comment: ""), value:NSLocalizedString("644", comment: ""))
-                            DetailColumnView(title:NSLocalizedString(  "PARTS", comment: ""),value: NSLocalizedString("5", comment: ""))
-                            DetailColumnView(title:NSLocalizedString(  "LANGUAGE", comment: ""), value: NSLocalizedString("English", comment: ""))
-                            DetailColumnView(title:NSLocalizedString(   "CATEGORY", comment: ""), value: NSLocalizedString("Pycology", comment: ""))
-                            DetailColumnView(title:NSLocalizedString(   "RELEASED", comment: ""),value: NSLocalizedString("2025/1/1", comment: ""))
+                            DetailColumnView(title: NSLocalizedString("PAGES", comment: ""), value: NSLocalizedString("644", comment: ""))
+                            DetailColumnView(title: NSLocalizedString("PARTS", comment: ""), value: NSLocalizedString("5", comment: ""))
+                            DetailColumnView(title: NSLocalizedString("LANGUAGE", comment: ""), value: NSLocalizedString("English", comment: ""))
+                            DetailColumnView(title: NSLocalizedString("CATEGORY", comment: ""), value: NSLocalizedString("Psychology", comment: ""))
+                            DetailColumnView(title: NSLocalizedString("RELEASED", comment: ""), value: NSLocalizedString("2025/1/1", comment: ""))
                         }
                         .padding()
                     }
@@ -115,16 +110,18 @@ NavigationView {
                     .foregroundColor(.white)
                     .padding(.bottom, 20)
                     
-                    // وصف الكتاب
+                    // Book Description Section
                     VStack(alignment: .leading) {
                         Text("Book Description")
                             .font(.headline)
-                        Text("""
-                             Explore the legacy of Alfred Marshall, a pioneer of the neoclassical school of economics.
-                             This book highlights his groundbreaking ideas on utility, supply, and demand, as well as his efforts to make economics accessible. Marshall’s work shaped modern economic thought, emphasizing individual behavior and its influence on production, costs, and market value. A must-read for understanding the foundations of contemporary economics.
-                             """)
-                        .font(.body)
-                        .foregroundColor(.gray)
+                        ScrollView {
+                            Text("""
+                            Explore the legacy of Alfred Marshall, a pioneer of the neoclassical school of economics.
+                            This book highlights his groundbreaking ideas on utility, supply, and demand, as well as his efforts to make economics accessible. Marshall’s work shaped modern economic thought, emphasizing individual behavior and its influence on production, costs, and market value. A must-read for understanding the foundations of contemporary economics.
+                            """)
+                            .font(.body)
+                            .foregroundColor(.gray)
+                        }
                     }
                     .padding(.horizontal)
                     
@@ -133,10 +130,12 @@ NavigationView {
             }
             .background(Color.black.edgesIgnoringSafeArea(.all))
             .foregroundColor(.white)
-            .navigationBarHidden(true) // إخفاء شريط التنقل العلوي
+            .navigationBarHidden(true)
         }
     }
 }
+
+// Define the DetailColumnView used for additional info
 struct DetailColumnView: View {
     let title: String
     let value: String
@@ -153,41 +152,43 @@ struct DetailColumnView: View {
         .frame(maxWidth: .infinity)
     }
 }
+
+// Button to Start a New Chapter
 struct BookActionButton: View {
     var body: some View {
         Button(action: {
-            // قم بإضافة الأكشن هنا
+            // Add action for starting a new chapter
             print("Start new chapter tapped!")
         }) {
             Text("Start New Chapter")
-                .font(.system(size: 20)) // Adjust font size to match "Start Reading"
+                .font(.system(size: 20))
                 .bold()
-                .padding(.vertical, 15)   // Adjust vertical padding for height
-                .padding(.horizontal, 100)  // Adjust horizontal padding to match "Start Reading" width
+                .padding(.vertical, 15)
+                .padding(.horizontal, 100)
                 .background(
                     RoundedRectangle(cornerRadius: 25)
                         .stroke(Color.gray, lineWidth: 1.5) // Border with desired thickness
                 )
-                .foregroundColor(.white)  // Text color (not transparent)
-                .cornerRadius(25)  // Keep the same rounded corners
-
+                .foregroundColor(.white)
+                .cornerRadius(25)
         }
         .padding(.bottom, 20)
     }
 }
 
+// InfoRow used for book details (Author, Co-authors, etc.)
 struct InfoRow: View {
-    let label: String // النص الأول (العنوان)
-    let value: String // النص الثاني (القيمة)
+    let label: String
+    let value: String
     
     var body: some View {
         HStack(spacing: 16) {
             Text(label)
                 .font(.headline)
-                .foregroundColor(.gray) // لون النص الأول
+                .foregroundColor(.gray)
             Text(value)
                 .font(.subheadline)
-                .foregroundColor(.white) // لون النص الثاني
+                .foregroundColor(.white)
         }
         .padding(.horizontal)
     }
@@ -198,4 +199,3 @@ struct BookProfileView_Previews: PreviewProvider {
         BookProfileView()
     }
 }
-

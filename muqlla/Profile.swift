@@ -109,11 +109,14 @@ struct NovelRowView: View {
                     .fill(colorForName(novel.color))
                     .frame(width: 70, height: 90)
                     .cornerRadius(8)
-                    .padding(.leading, 15)
+                    .padding(.leading, 20)
 //                    .padding(.leading, 70)
                     
-                    .padding(.leading, selectedTab == 0 ? -25 : -25)
-                    .padding(.leading, selectedTab != 2 ? 2 : -160)
+                    .padding(.leading, selectedTab == 0 ? -40 : -25)
+                    .padding(.leading, selectedTab != 2 ? 2 : -165)
+                    .padding(.leading, selectedTab != 1 ? 2 : -165)
+
+                
                     .accessibilityLabel("Book Image")
                 
 
@@ -127,6 +130,8 @@ struct NovelRowView: View {
                         .foregroundColor(.white)
                         .padding(.top,-30)
                         .padding(.leading, selectedTab != 2 ? 2 : -100)
+                        .padding(.leading, selectedTab != 1 ? 2 : -100)
+
 //                        .padding(.leading, selectedTab == 2 ? 2 : -100)
 //                        .padding(.leading, -50)
                         .accessibilityLabel("Book Name")
@@ -134,6 +139,8 @@ struct NovelRowView: View {
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .padding(.leading, selectedTab != 2 ? 2 : -90)
+                        .padding(.leading, selectedTab != 1 ? 2 : -90)
+
 //                        .padding(.leading, -20)
                         .accessibilityLabel("Book Date")
                         
@@ -143,34 +150,37 @@ struct NovelRowView: View {
                 
                 HStack  {
                  
-                    if selectedTab == 0 || selectedTab == 1  {
-                        Button(action: { }) {
-                            Text("Edit")
-                                .font(.body)
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
-                                .frame(width: selectedTab == 1 ? 180 : 100, height: 30) // Custom size for Collabs
-                                .background(Color.gray.opacity(0.8)) // Custom color for Collabs
-                                .cornerRadius(8)
-                                .padding(.top, 80)
-                                .padding(.leading, selectedTab == 0 ? -30 : -10)
-                                .accessibilityLabel("Edit")
-                                .accessibilityAddTraits(.isButton)
-                        }
-                    }
-                    
+//                    if selectedTab == 0 || selectedTab == 1  {
+//                        Button(action: { }) {
+//                            Text("Edit")
+//                                .font(.body)
+//                                .fontWeight(.medium)
+//                                .foregroundColor(.white)
+//                                .frame(width: selectedTab == 1 ? 180 : 100, height: 30) // Custom size for Collabs
+//                                .background(Color.gray.opacity(0.8)) // Custom color for Collabs
+//                                .cornerRadius(8)
+//                                .padding(.top, 80)
+//                                .padding(.leading, selectedTab == 0 ? -30 : -10)
+//                                .accessibilityLabel("Edit")
+//                                .accessibilityAddTraits(.isButton)
+//                        }
+//                    }
+//                    
                     if selectedTab == 0 {
                         Button(action: { deleteAction() }) { // Call deleteAction on tap
                             Text("Delete")
                                 .font(.body)
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
-                                .frame(width: 100, height: 30)
+                                .frame(width: 180, height: 30)
                                 .background(Color.gray.opacity(0.8))
                                 .cornerRadius(8)
                                 .padding(.top, 80)
+                                .padding(.leading,-30)
                                 .accessibilityLabel("Delete")
                                 .accessibilityAddTraits(.isButton)
+                            
+//                                .padding(.leading, selectedTab != 1 ? -50 : -50)
                         }
                     }
                 }

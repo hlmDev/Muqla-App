@@ -25,3 +25,10 @@ struct Novel: Identifiable {
 
     
 }
+struct Books: Identifiable {
+    let id: UUID
+    var title: String
+    var author: String
+    var description: String
+    var textContent: String // النص الكامل للكتاب
+}

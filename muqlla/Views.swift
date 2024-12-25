@@ -145,91 +145,104 @@ struct HomeContentView: View {
     @ObservedObject var bookVM: BookViewModel
 
     var body: some View {
-        VStack {
-            HStack {
-                TextField("Search", text: $bookVM.searchText)
-                    .padding(10)
-                    .background(Color(.systemGray5).opacity(0.2))
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-                    .accessibilityLabel("Search books")
-                    .accessibilityHint("Enter text to search for books")
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.white)
-                    .accessibilityLabel("Search")
-            }
-            .padding(.horizontal)
-
-            HStack {
-                ForEach(bookVM.filters, id: \ .self) { filter in
-                    Button(action: {
-                        bookVM.selectedFilter = filter
-                    }) {
-                        Text(filter)
-                            .foregroundColor(bookVM.selectedFilter == filter ? .black : .white)
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 15)
-                            .background(bookVM.selectedFilter == filter ? Color.green : Color.gray.opacity(0.3))
-                            .cornerRadius(20)
-                    }
-                    .accessibilityLabel("\(filter) filter")
-                    .accessibilityHint("Show \(filter.lowercased()) books")
-                    .accessibilityAddTraits(bookVM.selectedFilter == filter ? .isSelected : [])
+        NavigationView {
+            VStack {
+                HStack {
+                    TextField("Search", text: $bookVM.searchText)
+                        .padding(10)
+                        .background(Color(.systemGray5).opacity(0.2))
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                        .accessibilityLabel("Search books")
+                        .accessibilityHint("Enter text to search for books")
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.white)
+                        .accessibilityLabel("Search")
                 }
-            }
-            .padding(.horizontal)
+                .padding(.horizontal)
 
-            ScrollView {
-                if bookVM.filteredBooks.isEmpty {
-                    Text("No books found")
-                        .foregroundColor(.gray)
-                        .padding()
-                        .accessibilityLabel("No books found")
-                } else {
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                        ForEach(bookVM.filteredBooks) { book in
-                            BookCard(title: book.title, author: book.author, status: book.status, color: book.color)
+                HStack {
+                    ForEach(bookVM.filters, id: \.self) { filter in
+                        Button(action: {
+                            bookVM.selectedFilter = filter
+                        }) {
+                            Text(filter)
+                                .foregroundColor(bookVM.selectedFilter == filter ? .black : .white)
+                                .padding(.vertical, 8)
+                                .padding(.horizontal, 15)
+                                .background(bookVM.selectedFilter == filter ? Color.green : Color.gray.opacity(0.3))
+                                .cornerRadius(20)
+                        }
+                        .accessibilityLabel("\(filter) filter")
+                        .accessibilityHint("Show \(filter.lowercased()) books")
+                        .accessibilityAddTraits(bookVM.selectedFilter == filter ? .isSelected : [])
+                    }
+                }
+                .padding(.horizontal)
+
+                ScrollView {
+                    if bookVM.filteredBooks.isEmpty {
+                        Text("No books found")
+                            .foregroundColor(.gray)
+                            .padding()
+                            .accessibilityLabel("No books found")
+                    } else {
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
+                            ForEach(bookVM.filteredBooks) { book in
+                                BookCard(
+                                    title: book.title,
+                                    author: book.author,
+                                    status: book.status,
+                                    color: book.color,
+                                    destination: BookProfileView() // Navigate to BookProfileView
+                                )
                                 .frame(height: 200)
                                 .accessibilityElement(children: .combine)
                                 .accessibilityLabel("\(book.title) by \(book.author)")
                                 .accessibilityHint("Status: \(book.status)")
+                            }
                         }
+//                        .padding()
                     }
-                    .padding()
                 }
             }
+//            .navigationTitle("")
         }
     }
 }
 
-struct BookCard: View {
+struct BookCard<Destination: View>: View {
     let title: String
     let author: String
     let status: String
     let color: Color
+    let destination: Destination
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
-            Text(title)
-                .font(.title3)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-                .accessibilityLabel("Title: \(title)")
-            Text("By \(author)")
-                .font(.footnote)
-                .foregroundColor(.white.opacity(0.7))
-                .accessibilityLabel("Author: \(author)")
-            Spacer()
-            Text(status)
-                .font(.caption)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-                .accessibilityLabel("Status: \(status)")
+        NavigationLink(destination: destination) {
+            VStack(alignment: .leading, spacing: 5) {
+                Text(title)
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .accessibilityLabel("Title: \(title)")
+                Text("By \(author)")
+                    .font(.footnote)
+                    .foregroundColor(.white.opacity(0.7))
+                    .accessibilityLabel("Author: \(author)")
+                Spacer()
+                Text(status)
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .accessibilityLabel("Status: \(status)")
+            }
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(color.opacity(0.8))
+            .cornerRadius(12)
         }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(color.opacity(0.8))
-        .cornerRadius(12)
+        .buttonStyle(PlainButtonStyle()) // Keeps the custom appearance
     }
 }
 

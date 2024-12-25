@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "  Wish I Were My Alter Ego" : {
+
+    },
     " Explore the legacy of Alfred Marshall, a pioneer of the neoclassical school of economics.\n                             This book highlights his groundbreaking ideas on utility, supply, and demand, as well as his efforts to make economics accessible. Marshall’s work shaped modern economic thought, emphasizing individual behavior and its influence on production, costs, and market value. A must-read for understanding the foundations of contemporary economics." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -219,7 +222,6 @@
       }
     },
     "Book Date" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -262,7 +264,6 @@
       }
     },
     "Book Image" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -273,7 +274,6 @@
       }
     },
     "Book Name" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -513,6 +513,7 @@
       }
     },
     "Edit" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -708,6 +709,9 @@
       }
     },
     "Profile tab" : {
+
+    },
+    "Psychology" : {
 
     },
     "Publish" : {
