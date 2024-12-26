@@ -19,11 +19,12 @@ class CloudKitUserViewModel: ObservableObject {
     @Published var error: String = ""
     @Published var userName: String = ""
     @Published var isNewUser: Bool
-
+    @Published var authorName: String = ""
     init() {
         // Check if user has signed in before
         self.isNewUser = !UserDefaults.standard.bool(forKey: userKey)
         getiCloudUser()
+        loadAuthorName()
     }
 
     private func getiCloudUser() {
@@ -75,37 +76,93 @@ class CloudKitUserViewModel: ObservableObject {
         }
     }
 
-    func saveUserToCloudKit(credential: ASAuthorizationAppleIDCredential) {
+//    func saveUserToCloudKit(credential: ASAuthorizationAppleIDCredential) {
+//        let record = CKRecord(recordType: "User")
+//        record["appleUserIdentifier"] = credential.user
+//        record["email"] = credential.email
+//
+//        if let fullName = credential.fullName {
+//            record["givenName"] = fullName.givenName
+//            record["familyName"] = fullName.familyName
+//        }
+//
+//        container.publicCloudDatabase.save(record) { [weak self] _, error in
+//            DispatchQueue.main.async {
+//                if let error = error {
+//                    self?.error = "Unable to save your information. Please try again."
+//                    print("Error saving to CloudKit: \(error)")
+//                } else {
+//                    print("Successfully saved user to CloudKit")
+//                    // Mark user as signed in
+//                    UserDefaults.standard.set(true, forKey: self?.userKey ?? "")
+//                    self?.isNewUser = false
+//                }
+//            }
+//        }
+//    }
+    
+    func saveUserToCloudKit(credential: ASAuthorizationAppleIDCredential, authorName: String? = nil) {
         let record = CKRecord(recordType: "User")
         record["appleUserIdentifier"] = credential.user
         record["email"] = credential.email
+        record["name"] = authorName ?? credential.fullName?.givenName // Save author name
 
         if let fullName = credential.fullName {
             record["givenName"] = fullName.givenName
             record["familyName"] = fullName.familyName
         }
 
-        container.publicCloudDatabase.save(record) { [weak self] _, error in
+        container.publicCloudDatabase.save(record) { [weak self] savedRecord, error in
             DispatchQueue.main.async {
                 if let error = error {
                     self?.error = "Unable to save your information. Please try again."
                     print("Error saving to CloudKit: \(error)")
                 } else {
-                    print("Successfully saved user to CloudKit")
-                    // Mark user as signed in
+                    if let name = savedRecord?["name"] as? String {
+                        self?.authorName = name
+                        UserDefaults.standard.set(name, forKey: "authorName")
+                    }
                     UserDefaults.standard.set(true, forKey: self?.userKey ?? "")
                     self?.isNewUser = false
                 }
             }
         }
     }
+    
+    func updateAuthorName(_ name: String) {
+           guard !name.isEmpty else { return }
+           
+           // Query for existing user record
+           let predicate = NSPredicate(format: "appleUserIdentifier == %@", userName)
+           let query = CKQuery(recordType: "User", predicate: predicate)
+           
+           container.publicCloudDatabase.perform(query, inZoneWith: nil) { [weak self] records, error in
+               if let record = records?.first {
+                   record["name"] = name
+                   
+                   self?.container.publicCloudDatabase.save(record) { savedRecord, error in
+                       DispatchQueue.main.async {
+                           if error == nil {
+                               self?.authorName = name
+                               UserDefaults.standard.set(name, forKey: "authorName")
+                           }
+                       }
+                   }
+               }
+           }
+       }
+
+       private func loadAuthorName() {
+           authorName = UserDefaults.standard.string(forKey: "authorName") ?? ""
+       }
+   
 
     // Function to check if user is signed in
     func checkUserSignInStatus() -> Bool {
         return !isNewUser
     }
-}
 
+}
 // Rest of your ViewModels remain the same
 class BookViewModel: ObservableObject {
     @Published var books: [Book] = [
@@ -128,14 +185,52 @@ class BookViewModel: ObservableObject {
     }
 }
 
+
 class NovelViewModel: ObservableObject {
-    @Published var novels: [Novel] = [
-        Novel(id: 1, name: "Name", date: "2024-06-17", color: "purple"),
-        Novel(id: 2, name: "Name", date: "2024-06-18", color: "blue"),
-        Novel(id: 3, name: "Name", date: "2024-06-19", color: "purple")
-    ]
+    @Published var novels: [Novel] = []
+    private let container = CKContainer(identifier: "iCloud.com.a.muqlla")
+    
+    init() {
+        fetchBooks()
+    }
+    
+    func fetchBooks() {
+        let query = CKQuery(recordType: "Book", predicate: NSPredicate(value: true))
+        container.publicCloudDatabase.perform(query, inZoneWith: nil) { [weak self] records, error in
+            if let error = error {
+                print("CloudKit error: \(error.localizedDescription)")
+                return
+            }
+            DispatchQueue.main.async {
+                guard let records = records else { return }
+                self?.novels = records.map { record in
+                    Novel(
+                        id: record.recordID.hashValue,
+                        name: record["title"] as? String ?? "",
+                        date: (record["date"] as? Date)?.formatted() ?? "",
+                        color: "blue"
+                    )
+                }
+            }
+        }
+    }
     
     func deleteNovel(id: Int) {
         novels.removeAll { $0.id == id }
     }
 }
+
+
+//class NovelViewModel: ObservableObject {
+//    @Published var novels: [Novel] = [
+//        Novel(id: 1, name: "Name", date: "2024-06-17", color: "purple"),
+//        Novel(id: 2, name: "Name", date: "2024-06-18", color: "blue"),
+//        Novel(id: 3, name: "Name", date: "2024-06-19", color: "purple")
+//    ]
+//    
+//    func deleteNovel(id: Int) {
+//        novels.removeAll { $0.id == id }
+//    }
+//}
+
+
