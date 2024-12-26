@@ -8,19 +8,7 @@ struct BookProfileView: View {
             ScrollView(.vertical, showsIndicators: true) {
                 VStack {
                     // Top Header with Back Button
-                    HStack {
-                        Button(action: {
-                            navigateToHome = true
-                        }) {
-                            Text("Back")
-                                .foregroundColor(.white)
-                        }
-                        Spacer()
-                    }
-                    .padding()
-                    .background(Color.black)
-                    
-                    // Book Image and Title Section
+                   // Book Image and Title Section
                     VStack {
                         Rectangle()
                             .fill(Color.bookcolor) // Ensure Color.bookcolor is defined
@@ -154,11 +142,34 @@ struct DetailColumnView: View {
 }
 
 // Button to Start a New Chapter
+//struct BookActionButton: View {
+//    var body: some View {
+//        Button(action: {
+//            // Add action for starting a new chapter
+//            print("Start new chapter tapped!")
+//        }) {
+//            Text("Start New Chapter")
+//                .font(.system(size: 20))
+//                .bold()
+//                .padding(.vertical, 15)
+//                .padding(.horizontal, 100)
+//                .background(
+//                    RoundedRectangle(cornerRadius: 25)
+//                        .stroke(Color.gray, lineWidth: 1.5) // Border with desired thickness
+//                )
+//                .foregroundColor(.white)
+//                .cornerRadius(25)
+//        }
+//        .padding(.bottom, 20)
+//    }
+//}
+
 struct BookActionButton: View {
+    @State private var showWriteBookView = false // State to control navigation
+    
     var body: some View {
         Button(action: {
-            // Add action for starting a new chapter
-            print("Start new chapter tapped!")
+            showWriteBookView = true
         }) {
             Text("Start New Chapter")
                 .font(.system(size: 20))
@@ -167,15 +178,19 @@ struct BookActionButton: View {
                 .padding(.horizontal, 100)
                 .background(
                     RoundedRectangle(cornerRadius: 25)
-                        .stroke(Color.gray, lineWidth: 1.5) // Border with desired thickness
+                        .stroke(Color.gray, lineWidth: 1.5)
                 )
                 .foregroundColor(.white)
                 .cornerRadius(25)
         }
         .padding(.bottom, 20)
+        .sheet(isPresented: $showWriteBookView) {
+            NavigationView {
+                WriteBookView()
+            }
+        }
     }
 }
-
 // InfoRow used for book details (Author, Co-authors, etc.)
 struct InfoRow: View {
     let label: String

@@ -260,124 +260,124 @@ struct BookCard<Destination: View>: View {
 }
 
 
-    struct WriteBookView: View {
-        @Environment(\.dismiss) private var dismiss
-        @StateObject private var cloudKitVM = CloudKitUserViewModel()
-        @StateObject private var bookVM = BookViewModel()
-        @State private var title = ""
-        @State private var content = ""
-        @State private var showCancelDialog = false
-        @State private var navigateToHome = false
-        
-        func saveBook() {
-            let container = CKContainer(identifier: "iCloud.com.a.muqlla")
-            let record = CKRecord(recordType: "Book")
-            
-            // here important
-            let authorRecordID = CKRecord.ID(recordName: cloudKitVM.authorName)
-            let authorReference = CKRecord.Reference(recordID: authorRecordID, action: .none)
-            
-            record["author"] = authorReference
-
-            record["title"] = title
-            record["content"] = content
-            record["author"] = authorReference
-            record["createdAt"] = Date()
-            record["status"] = "Published"  // Or "Draft" based on your needs
-            record["isDraft"] = 0
-            record["collaborators"] = [authorReference]
-            
-            print("Saving book with title: \(title)")
-            
-            container.publicCloudDatabase.save(record) { record, error in
-                DispatchQueue.main.async {
-                    if let error = error {
-                        print(" CloudKit save error: \(error.localizedDescription)")
-                        return
-                    }
-                    print("Book saved successfully")
-                    self.dismiss()
-                }
-            }
-        }
-        
-        var body: some View {
-            NavigationView {
-                ZStack {
-                    Color.black.edgesIgnoringSafeArea(.all)
-                    
-                    VStack(alignment: .leading, spacing: 15) {
-                        TextField("Title", text: $title)
-                            .font(.title2)
-                            .foregroundColor(.white)
-                            .padding(.horizontal)
-                            .padding(.top)
-                            .accessibilityLabel("Book title")
-                            .accessibilityHint("Enter the title of your book")
-                        
-                        Text(Date(), style: .date)
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                            .padding(.horizontal)
-                            .accessibilityLabel("Creation date")
-                        
-                        ZStack(alignment: .topLeading) {
-                            TextEditor(text: $content)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color(.systemGray5).opacity(0.2))
-                                .cornerRadius(8)
-                                .padding(.horizontal)
-                                .accessibilityLabel("Book content")
-                                .accessibilityHint("Write your book content here")
-                            
-                            if content.isEmpty {
-                                Text("Type your Book..")
-                                    .foregroundColor(.gray)
-                                    .padding(.leading, 20)
-                                    .padding(.top, 24)
-                                    .accessibility(hidden: true)
-                            }
-                        }
-                        
-                        Spacer()
-                    }
-                    .padding(.top)
-                }
-                .navigationBarItems(
-                    leading: Button("Cancel") {
-                        showCancelDialog = true
-                    }
-                        .foregroundColor(.green)
-                        .accessibilityLabel("Cancel writing")
-                        .accessibilityHint("Double tap to show save or delete options"),
-                    
-                    trailing: Button("Publish") {
-                        if !title.isEmpty {
-                            saveBook()
-                        }
-                    }
-                        .foregroundColor(title.isEmpty ? .gray : .green)
-                        .disabled(title.isEmpty)
-                        .accessibilityLabel("Publish book")
-                        .accessibilityHint(title.isEmpty ? "Add a title first" : "Double tap to publish your book")
-                )
-                .confirmationDialog("Select", isPresented: $showCancelDialog) {
-                    Button("Save to Draft") {
-                        print("Saved as Draft")
-                        dismiss()
-                    }
-                    
-                    Button("Delete", role: .destructive) {
-                        print("Content Deleted")
-                        navigateToHome = true
-                    }
-                    
-                    Button("Cancel", role: .cancel) { }
-                }
-            }
-        }
-    }
+//    struct WriteBookView: View {
+//        @Environment(\.dismiss) private var dismiss
+//        @StateObject private var cloudKitVM = CloudKitUserViewModel()
+//        @StateObject private var bookVM = BookViewModel()
+//        @State private var title = ""
+//        @State private var content = ""
+//        @State private var showCancelDialog = false
+//        @State private var navigateToHome = false
+//        
+//        func saveBook() {
+//            let container = CKContainer(identifier: "iCloud.com.a.muqlla")
+//            let record = CKRecord(recordType: "Book")
+//            
+//            // here important
+//            let authorRecordID = CKRecord.ID(recordName: cloudKitVM.authorName)
+//            let authorReference = CKRecord.Reference(recordID: authorRecordID, action: .none)
+//            
+//            record["author"] = authorReference
+//
+//            record["title"] = title
+//            record["content"] = content
+//            record["author"] = authorReference
+//            record["createdAt"] = Date()
+//            record["status"] = "Published"  // Or "Draft" based on your needs
+//            record["isDraft"] = 0
+//            record["collaborators"] = [authorReference]
+//            
+//            print("Saving book with title: \(title)")
+//            
+//            container.publicCloudDatabase.save(record) { record, error in
+//                DispatchQueue.main.async {
+//                    if let error = error {
+//                        print(" CloudKit save error: \(error.localizedDescription)")
+//                        return
+//                    }
+//                    print("Book saved successfully")
+//                    self.dismiss()
+//                }
+//            }
+//        }
+//        
+//        var body: some View {
+//            NavigationView {
+//                ZStack {
+//                    Color.black.edgesIgnoringSafeArea(.all)
+//                    
+//                    VStack(alignment: .leading, spacing: 15) {
+//                        TextField("Title", text: $title)
+//                            .font(.title2)
+//                            .foregroundColor(.white)
+//                            .padding(.horizontal)
+//                            .padding(.top)
+//                            .accessibilityLabel("Book title")
+//                            .accessibilityHint("Enter the title of your book")
+//                        
+//                        Text(Date(), style: .date)
+//                            .font(.caption)
+//                            .foregroundColor(.gray)
+//                            .padding(.horizontal)
+//                            .accessibilityLabel("Creation date")
+//                        
+//                        ZStack(alignment: .topLeading) {
+//                            TextEditor(text: $content)
+//                                .foregroundColor(.white)
+//                                .padding()
+//                                .background(Color(.systemGray5).opacity(0.2))
+//                                .cornerRadius(8)
+//                                .padding(.horizontal)
+//                                .accessibilityLabel("Book content")
+//                                .accessibilityHint("Write your book content here")
+//                            
+//                            if content.isEmpty {
+//                                Text("Type your Book..")
+//                                    .foregroundColor(.gray)
+//                                    .padding(.leading, 20)
+//                                    .padding(.top, 24)
+//                                    .accessibility(hidden: true)
+//                            }
+//                        }
+//                        
+//                        Spacer()
+//                    }
+//                    .padding(.top)
+//                }
+//                .navigationBarItems(
+//                    leading: Button("Cancel") {
+//                        showCancelDialog = true
+//                    }
+//                        .foregroundColor(.green)
+//                        .accessibilityLabel("Cancel writing")
+//                        .accessibilityHint("Double tap to show save or delete options"),
+//                    
+//                    trailing: Button("Publish") {
+//                        if !title.isEmpty {
+//                            saveBook()
+//                        }
+//                    }
+//                        .foregroundColor(title.isEmpty ? .gray : .green)
+//                        .disabled(title.isEmpty)
+//                        .accessibilityLabel("Publish book")
+//                        .accessibilityHint(title.isEmpty ? "Add a title first" : "Double tap to publish your book")
+//                )
+//                .confirmationDialog("Select", isPresented: $showCancelDialog) {
+//                    Button("Save to Draft") {
+//                        print("Saved as Draft")
+//                        dismiss()
+//                    }
+//                    
+//                    Button("Delete", role: .destructive) {
+//                        print("Content Deleted")
+//                        navigateToHome = true
+//                    }
+//                    
+//                    Button("Cancel", role: .cancel) { }
+//                }
+//            }
+//        }
+//    }
 
 struct AuthorNameView: View {
     @StateObject private var viewModel: CloudKitUserViewModel

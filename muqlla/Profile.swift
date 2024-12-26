@@ -72,7 +72,6 @@ struct NovelListView: View {
             viewModel.fetchBooks()
         }
         .preferredColorScheme(.dark)
-      
     }
 }
 
@@ -103,7 +102,7 @@ struct NovelListView: View {
 //        novels.removeAll { $0.id == id }
 //    }
 //}
-
+    
 // MARK: - Top Tabs View
 struct TopTabsView: View {
     @Binding var selectedTab: Int

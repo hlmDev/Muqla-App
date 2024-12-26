@@ -271,5 +271,8 @@ struct BookContentView: View {
         }
         .environment(\.layoutDirection, .leftToRight) // تحديد اتجاه التخطيط هنا
         .navigationTitle("Reading")
+       
+
     }
+    
 }
