@@ -514,32 +514,49 @@ struct AuthorNameView: View {
         _showNamePrompt = showNamePrompt
     }
     
-    var body: some View {
-        NavigationView {
-            VStack(spacing: 20) {
-                Text("Your name")
-                    .font(.title2)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                
-                TextField("Enter your name", text: $authorName)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal)
-                
-                Button("Continue") {
-                    if !authorName.isEmpty {
-                        viewModel.updateAuthorName(authorName)
-                        showNamePrompt = false
+
+   
+        
+        var body: some View {
+            NavigationView {
+                VStack(spacing: 20) {
+                    // Title Text
+//                    Text("Enter Your Name")
+//                        .font(.title2)
+//                        .fontWeight(.bold)
+//                        .foregroundColor(.white)
+//                        .padding(.top, 20)
+                    
+                    // TextField for entering name
+                    TextField("Enter Your Name", text: $authorName)
+                        .padding()
+                        .background(Color.white.opacity(0.1))
+                        .cornerRadius(12)
+                        .foregroundColor(.white)
+                        .autocapitalization(.words)
+                        .disableAutocorrection(true)
+                        .padding(.horizontal)
+                    
+                    // Continue Button
+                    Button(action: {
+                        if !authorName.isEmpty {
+                            viewModel.updateAuthorName(authorName)
+                            showNamePrompt = false
+                        }
+                    }) {
+                        Text("Continue")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(authorName.isEmpty ? Color.gray : Color.green)
+                            .cornerRadius(10)
+                            .shadow(radius: 5)
                     }
+                    .disabled(authorName.isEmpty)
+                    .padding(.horizontal)
                 }
-                .foregroundColor(.white)
-                .padding()
-                .background(Color.green)
-                .cornerRadius(10)
-                .disabled(authorName.isEmpty)
             }
-            .padding()
-            .background(Color.black.edgesIgnoringSafeArea(.all))
         }
     }
-}
