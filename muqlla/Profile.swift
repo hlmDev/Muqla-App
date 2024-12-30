@@ -14,13 +14,13 @@ import CloudKit
 //    @StateObject private var viewModel = NovelViewModel()
 //    @State private var selectedTab = 0
 //    @State private var selectedNavIndex = 2// Tracks bottom bar selection
-//    
+//
 //    var body: some View {
 //        NavigationView {
 //            VStack(spacing: 0) {
 //                // Top Tabs
 //                TopTabsView(selectedTab: $selectedTab)
-//                
+//
 //                // List of Novels
 //                ScrollView {
 //                    VStack(spacing: 15) {
@@ -33,7 +33,7 @@ import CloudKit
 //                   // .padding(.top, 10)
 //                }
 //                .background(Color.black)
-//                
+//
 //                // Bottom Navigation Bar
 //               // BottomNavBarView(selectedNavIndex: $selectedNavIndex)
 //            }
@@ -48,44 +48,45 @@ struct NovelListView: View {
     @StateObject private var viewModel = NovelViewModel()
     @State private var selectedTab = 0
     @State private var selectedNavIndex = 2
-    
+
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
                 TopTabsView(selectedTab: $selectedTab)
-                
+
                 ScrollView {
                     VStack(spacing: 15) {
-                        ForEach(viewModel.novels) { novel in
-                            NovelRowView(novel: novel, selectedTab: selectedTab, deleteAction: {
-                                viewModel.deleteNovel(id: novel.id)
-                            })
+                        // Correctly bind the novels array
+                        ForEach($viewModel.novels) { $novel in
+                            NovelRowView(
+                                novel: $novel, // Pass the binding to NovelRowView
+                                selectedTab: selectedTab,
+                                deleteAction: {
+                                    viewModel.deleteNovel(id: novel.id)
+                                }
+                            )
                         }
                     }
+                    .padding()
                 }
-                .background(Color.black)
             }
-            .navigationBarHidden(true)
-            .background(Color.black)
+            .navigationTitle("Novels")
         }
-        .onAppear {
-            viewModel.fetchBooks()
-        }
-        .preferredColorScheme(.dark)
     }
 }
+
 
 //class NovelViewModel: ObservableObject {
 //    @Published var novels: [Novel] = []
 //    private let container = CKContainer(identifier: "iCloud.com.a.muqlla")
-//    
+//
 //    func fetchBooks() {
 //        let query = CKQuery(recordType: "Book", predicate: NSPredicate(value: true))
-//        
+//
 //        container.publicCloudDatabase.perform(query, inZoneWith: nil) { [weak self] records, error in
 //            DispatchQueue.main.async {
 //                guard let records = records, error == nil else { return }
-//                
+//
 //                self?.novels = records.map { record in
 //                    Novel(
 //                        id: record.recordID.hashValue,
@@ -97,7 +98,7 @@ struct NovelListView: View {
 //            }
 //        }
 //    }
-//    
+//
 //    func deleteNovel(id: Int) {
 //        novels.removeAll { $0.id == id }
 //    }
@@ -153,8 +154,15 @@ struct TabButton: View {
 }
 
 // MARK: - Novel Row View
+struct Novel: Identifiable {
+    let id: Int
+    let name: String
+    let date: String
+    let color: String
+}
+
 struct NovelRowView: View {
-    let novel: Novel
+    @Binding var  novel: Novel
     let selectedTab: Int
     let deleteAction: () -> Void
     
@@ -227,7 +235,7 @@ struct NovelRowView: View {
 //                                .accessibilityAddTraits(.isButton)
 //                        }
 //                    }
-//                    
+//
                     if selectedTab == 0 {
                         Button(action: { deleteAction() }) { // Call deleteAction on tap
                             Text("Delete")

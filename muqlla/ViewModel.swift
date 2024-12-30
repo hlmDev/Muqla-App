@@ -9,6 +9,9 @@
 import Foundation
 import CloudKit
 import AuthenticationServices
+import SwiftUICore
+
+
 
 class CloudKitUserViewModel: ObservableObject {
     private let container = CKContainer(identifier: "iCloud.com.a.muqlla")
@@ -164,30 +167,117 @@ class CloudKitUserViewModel: ObservableObject {
 
 }
 // Rest of your ViewModels remain the same
-class BookViewModel: ObservableObject {
-    @Published var books: [Book] = [
-        Book(title: "Wish I Were My Alter Ego", author: "Alanoud Alsamil", status: "Incomplete", color: .blue),
-//        Book(title: "Joseph Stalin's Vision of Socialism", author: "Alanoud Alsamil", status: "Complete", color: .purple),
-//        Book(title: "Nietzsche's Morality", author: "Alanoud Alsamil", status: "Incomplete", color: .green),
-//        Book(title: "In Which Mental Stage Is Your Mind Stuck?", author: "Alanoud Alsamil", status: "Complete", color: .brown)
-    ]
+//class BookViewModel: ObservableObject {
+//    @Published var books: [Book] = [
+//        Book(title: "Wish I Were My Alter Ego", author: "Alanoud Alsamil", status: "Incomplete", color: .blue),
+////        Book(title: "Joseph Stalin's Vision of Socialism", author: "Alanoud Alsamil", status: "Complete", color: .purple),
+////        Book(title: "Nietzsche's Morality", author: "Alanoud Alsamil", status: "Incomplete", color: .green),
+////        Book(title: "In Which Mental Stage Is Your Mind Stuck?", author: "Alanoud Alsamil", status: "Complete", color: .brown)
+//    ]
+//
+//    @Published var searchText = ""
+//    @Published var selectedFilter = "All"
+//
+//    let filters = ["All", "Complete", "Incomplete"]
+//
+//    var filteredBooks: [Book] {
+//        books.filter { book in
+//            (selectedFilter == "All" || book.status == selectedFilter) &&
+//            (searchText.isEmpty || book.title.localizedCaseInsensitiveContains(searchText))
+//        }
+//    }
+//}
 
+class BookViewModel: ObservableObject {
+    private let container = CKContainer(identifier: "iCloud.com.a.muqlla")
+    @Published var books: [Book] = []
     @Published var searchText = ""
     @Published var selectedFilter = "All"
-
+    @Published var isLoading = false
+    @Published var error: String = ""
+    
     let filters = ["All", "Complete", "Incomplete"]
-
+    
+    init() {
+        setupCurrentUserReference()
+    }
+    
+    private func setupCurrentUserReference() {
+        guard let authorName = UserDefaults.standard.string(forKey: "authorName") else {
+            print("⚠️ No author name found")
+            return
+        }
+        print("📚 Author name found: \(authorName)")
+        fetchBooks()
+    }
+    
+    func fetchBooks() {
+        isLoading = true
+        print("🔄 Fetching books...")
+        
+        // Simple predicate to get all books
+        let query = CKQuery(recordType: "Book", predicate: NSPredicate(value: true))
+        
+        container.publicCloudDatabase.perform(query, inZoneWith: nil) { [weak self] records, error in
+            DispatchQueue.main.async {
+                self?.isLoading = false
+                
+                if let error = error {
+                    print("❌ Error fetching books: \(error.localizedDescription)")
+                    self?.error = error.localizedDescription
+                    return
+                }
+                
+                guard let records = records else {
+                    print("⚠️ No records found")
+                    self?.error = "No books found"
+                    return
+                }
+                
+                print("✅ Found \(records.count) books")
+                
+                // Reset books array before adding new ones
+                self?.books = records.map { record in
+                    let title = record["title"] as? String ?? "Untitled"
+                    let status = record["status"] as? String ?? "Incomplete"
+                    let isDraft = record["isDraft"] as? Int ?? 0
+                    let authorRef = record["author"] as? CKRecord.Reference
+                    let authorName = authorRef?.recordID.recordName ?? "Unknown Author"
+                    
+                    print("📖 Loading book: \(title) by \(authorName)")
+                    
+                    return Book(
+                        id: record.recordID.recordName,
+                        title: title,
+                        author: authorName,
+                        status: status,
+                        color: .blue,
+                        isDraft: isDraft,
+                        isCollaborative: (record["collaborators"] as? [CKRecord.Reference])?.count ?? 0 > 1,
+                        description: record["description"] as? String
+                    )
+                }
+                
+                print("📚 Total books loaded: \(self?.books.count ?? 0)")
+            }
+        }
+    }
+    
     var filteredBooks: [Book] {
         books.filter { book in
-            (selectedFilter == "All" || book.status == selectedFilter) &&
-            (searchText.isEmpty || book.title.localizedCaseInsensitiveContains(searchText))
+            let matchesFilter = selectedFilter == "All" || book.status == selectedFilter
+            let matchesSearch = searchText.isEmpty || book.title.localizedCaseInsensitiveContains(searchText)
+            return matchesFilter && matchesSearch
         }
     }
 }
 
 
+
 class NovelViewModel: ObservableObject {
     @Published var novels: [Novel] = []
+    @Published var isLoading: Bool = false
+    @Published var error: String = ""  // Added error property
     private let container = CKContainer(identifier: "iCloud.com.a.muqlla")
     
     init() {
@@ -195,14 +285,24 @@ class NovelViewModel: ObservableObject {
     }
     
     func fetchBooks() {
+        isLoading = true
         let query = CKQuery(recordType: "Book", predicate: NSPredicate(value: true))
+        
         container.publicCloudDatabase.perform(query, inZoneWith: nil) { [weak self] records, error in
-            if let error = error {
-                print("CloudKit error: \(error.localizedDescription)")
-                return
-            }
             DispatchQueue.main.async {
-                guard let records = records else { return }
+                self?.isLoading = false
+                
+                if let error = error {
+                    self?.error = error.localizedDescription
+                    print("CloudKit error: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let records = records else {
+                    self?.error = "No records found"
+                    return
+                }
+                
                 self?.novels = records.map { record in
                     Novel(
                         id: record.recordID.hashValue,
@@ -227,7 +327,7 @@ class NovelViewModel: ObservableObject {
 //        Novel(id: 2, name: "Name", date: "2024-06-18", color: "blue"),
 //        Novel(id: 3, name: "Name", date: "2024-06-19", color: "purple")
 //    ]
-//    
+//
 //    func deleteNovel(id: Int) {
 //        novels.removeAll { $0.id == id }
 //    }
