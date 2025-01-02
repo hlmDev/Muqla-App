@@ -87,40 +87,30 @@ struct Book: Identifiable {
         self.description = description
         self.content = content
     }
+
+
     
-    
-    
-    //    struct Novel: Identifiable {
-    //        let id: Int
-    //        let name: String
-    //        let date: String
-    //        let color: String
-    //
-    //    }
-    
-    //    struct Novel: Identifiable {
-    //        var id: Int
-    //        var name: String
-    //        var date: String
-    //        var color: String
-    //    }
+//    struct Novel: Identifiable {
+//        let id: Int
+//        let name: String
+//        let date: String
+//        let color: String
+//
+//    }
     
     struct Novel: Identifiable {
-        let id: CKRecord.ID // Unique ID for CloudKit record
-        let name: String
-        let date: String
-        let color: String
-        
-        
-        
-        
-        struct Books: Identifiable {
-            let id: UUID
-            var title: String
-            var author: String
-            var description: String
-            var textContent: String // النص الكامل للكتاب
-        }
-        
+        var id: Int
+        var name: String
+        var date: String
+        var color: String
     }
+
+    struct Books: Identifiable {
+        let id: UUID
+        var title: String
+        var author: String
+        var description: String
+        var textContent: String // النص الكامل للكتاب
+    }
+    
 }

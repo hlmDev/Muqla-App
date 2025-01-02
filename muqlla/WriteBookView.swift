@@ -64,10 +64,10 @@ struct WriteBookView: View {
 //    func saveBook() {
 //        let container = CKContainer(identifier: "iCloud.com.a.muqlla")
 //        let record = CKRecord(recordType: "Book")
-//   
+//
 //        let authorRecordID = CKRecord.ID(recordName: cloudKitVM.authorName)
 //        let authorReference = CKRecord.Reference(recordID: authorRecordID, action: .none)
-//   
+//
 //        record["author"] = authorReference
 //        record["title"] = title
 //        record["content"] = bookContent
@@ -83,7 +83,7 @@ struct WriteBookView: View {
 //            let asset = CKAsset(fileURL: saveImageTemporarily(imageData))
 //            record["coverImage"] = asset
 //        }
-//   
+//
 //        container.publicCloudDatabase.save(record) { record, error in
 //            DispatchQueue.main.async {
 //                if let error = error {

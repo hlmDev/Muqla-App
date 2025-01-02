@@ -273,16 +273,11 @@ class BookViewModel: ObservableObject {
 }
 
 
-struct Novel: Identifiable {
-    let id: CKRecord.ID // Use CKRecord.ID for CloudKit integration
-    let name: String    // Title of the book
-    let date: String    // Publication or added date (formatted string)
-    let color: String   // Any color-related property
-}
+
 class NovelViewModel: ObservableObject {
     @Published var novels: [Novel] = []
     @Published var isLoading: Bool = false
-    @Published var error: String = ""
+    @Published var error: String = ""  // Added error property
     private let container = CKContainer(identifier: "iCloud.com.a.muqlla")
     
     init() {
@@ -310,7 +305,7 @@ class NovelViewModel: ObservableObject {
                 
                 self?.novels = records.map { record in
                     Novel(
-                        id: record.recordID, // CKRecord.ID
+                        id: record.recordID.hashValue,
                         name: record["title"] as? String ?? "",
                         date: (record["date"] as? Date)?.formatted() ?? "",
                         color: "blue"
@@ -320,19 +315,12 @@ class NovelViewModel: ObservableObject {
         }
     }
     
-    func deleteBook(_ id: CKRecord.ID) {
-        container.publicCloudDatabase.delete(withRecordID: id) { [weak self] recordID, error in
-            if let error = error {
-                print("Error deleting book: \(error.localizedDescription)")
-                return
-            }
-
-            DispatchQueue.main.async {
-                self?.novels.removeAll { $0.id == id } // Compare CKRecord.ID
-            }
-        }
+    func deleteNovel(id: Int) {
+        novels.removeAll { $0.id == id }
     }
 }
+
+
 //class NovelViewModel: ObservableObject {
 //    @Published var novels: [Novel] = [
 //        Novel(id: 1, name: "Name", date: "2024-06-17", color: "purple"),

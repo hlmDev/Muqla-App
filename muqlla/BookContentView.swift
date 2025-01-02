@@ -8,7 +8,7 @@ import SwiftUI
 //                    .font(.largeTitle)
 //                    .bold()
 //                    .padding(.top)
-//                
+//
 //                Text("Description: ")
 //                    .bold()
 //                    .font(.system(size: 20)) // على سبيل المثال، حجم الخط 20
@@ -22,12 +22,12 @@ import SwiftUI
 //                    unstoppable? In Wish I Were My Alter Ego, we explore the fascinating concept of creating
 //                    and embodying a secondary self—a persona that allows you to break free from limitations,
 //                    express hidden sides of yourself, and step boldly into the life you’ve always dreamed of.
-//                    
+//
 //                    Drawing on psychology, manifestation techniques, and practical steps, this book guides
 //                    you through the journey of inventing and living as your alter ego. From defining their
 //                    personality, habits, and mindset to learning how to embody them in your everyday life,
 //                    you’ll discover how to transform self-doubt into self-empowerment.
-//                    
+//
 //                    Packed with real-world examples, inspiring insights, and actionable strategies, Wish I Were
 //                    My Alter Ego oGers you the ultimate blueprint to unleash your potential and redefine your
 //                    identity—on your terms. Who will your alter ego be, and how will they change your life? It’s
@@ -35,7 +35,7 @@ import SwiftUI
 //                    """)
 //                    .font(.body)
 //                    .foregroundColor(.primary)
-//                
+//
 //                Spacer()
 //            }
 //            Text("Introduction")
@@ -44,7 +44,7 @@ import SwiftUI
 //            Spacer()
 //                .frame(height: 30) // تحديد المسافة بين العناصر بمقدار 50
 //
-//           
+//
 //            Text("""
 //                The concept of an alter ego has fascinated psychologists, writers, and individuals for
 //                decades. At its core, it represents the duality of human nature—the instinctual self (id), the
@@ -52,7 +52,7 @@ import SwiftUI
 //                These layers often exist in harmony or conflict, shaping our identity. However, in a modern
 //                sense, the alter ego has transcended psychology and become a tool for transformation,
 //                self-expression, and empowerment.
-//                
+//
 //                Through this book, we will explore how creating and embodying an alter ego can help
 //                individuals navigate challenges, enhance confidence, and unlock hidden potential. By
 //                understanding the structure and purpose of an alter ego, we can take deliberate steps to
@@ -76,7 +76,7 @@ import SwiftUI
 //                example, Jennifer Lopez has “Lola,” Eminem has “Slim Shady,” and Mariah Carey has
 //                “Mimi.” These personas allow them to express facets of themselves they might not feel
 //                comfortable showcasing otherwise.
-//                
+//
 //                An alter ego serves as a means to transcend limitations and embody a version of yourself
 //                that resonates with your goals and desires. It’s a method of manifestation—becoming
 //                someone you aspire to be.
@@ -99,14 +99,14 @@ import SwiftUI
 //                alternative personality that is distinct from one’s original identity. This alter ego can
 //                embody characteristics you admire, qualities you wish to develop, or traits that your
 //                current self may lack.
-//                
+//
 //                In manifestation terms, your alter ego is simply a diGerent concept of self or a state of mind
 //                that you can embody or identify with. It is not bound by your limitations; instead, it’s
 //                shaped by your aspirations.
 //                """)
 //            .font(.body)
 //            .foregroundColor(.primary)
-//            
+//
 //            Spacer()
 //                .frame(height: 30) // تحديد المسافة بين العناصر بمقدار 50
 //
@@ -121,9 +121,9 @@ import SwiftUI
 //            Text("""
 //                Creating an alter ego can be especially beneficial if you:
 //                • Struggle to embody your desired version of self consistently.
-//                
+//
 //                • Feel overwhelmed by societal expectations or personal insecurities.
-//                
+//
 //                • Want to express yourself in a way that feels authentic yet diGerent from your usual
 //                persona. An alter ego acts as a bridge between who you are and who you wish to
 //                become. It provides a safe space for experimentation, reduces anxiety, and boosts
@@ -132,7 +132,7 @@ import SwiftUI
 //                """)
 //            .font(.body)
 //            .foregroundColor(.primary)
-//            
+//
 //            Spacer()
 //                .frame(height: 30) // تحديد المسافة بين العناصر بمقدار 50
 //
@@ -146,7 +146,7 @@ import SwiftUI
 //            Text("""
 //                To develop your alter ego, you need to engage in a deliberate process of creation and
 //                embodiment. This involves several steps:
-//                
+//
 //                1. Visualizing Your Alter Ego
 //                • How do they look? Consider their hairstyle, clothing, posture, and overall
 //                appearance.
@@ -158,7 +158,7 @@ import SwiftUI
 //                sleep schedules.
 //                • Who do they surround themselves with? Do they interact with ambitious,
 //                kind, and supportive people?
-//                
+//
 //                2. Taking Action to Embody Them
 //                • Change aspects of your appearance, such as your wardrobe or body
 //                language, to align with their image.
@@ -168,7 +168,7 @@ import SwiftUI
 //                • Incorporate their habits into your routine, such as starting a fitness regimen
 //                or journaling.
 //                • Surround yourself with people who reflect the values of your alter ego.
-//                
+//
 //                3. Becoming Your Alter Ego
 //                • Reflect on your progress and adjust as needed.
 //                • Embody your alter ego in specific situations where you need their traits most.
@@ -176,7 +176,7 @@ import SwiftUI
 //                """)
 //            .font(.body)
 //            .foregroundColor(.primary)
-//            
+//
 //            Spacer()
 //                .frame(height: 30) // تحديد المسافة بين العناصر بمقدار 50
 //
@@ -192,11 +192,11 @@ import SwiftUI
 //                Having an alter ego is one thing; living as them is another. The key to fully embracing your
 //                alter ego is to let them “take over” in moments where their strengths are needed. When
 //                faced with a decision, ask yourself:
-//                
+//
 //                • What would they do?
 //                • How would they respond?
 //                • What would they choose?
-//                
+//
 //                Let them live through you, using your body as their vessel. This practice helps you integrate
 //                their qualities into your life, enabling growth and transformation.
 //                """)
@@ -215,7 +215,7 @@ import SwiftUI
 //
 //            Text("""
 //                Here’s a quick guide to help you embody your alter ego:
-//                
+//
 //                1.Appearance: Match their hairstyle, clothing, and posture.
 //                2.Personality: Adopt their social traits, humor, or mystery.
 //                3.Mindset: Embrace positivity, resilience, or abundance.
@@ -237,7 +237,7 @@ import SwiftUI
 //                .frame(height: 30) // تحديد المسافة بين العناصر بمقدار 50
 //            Text("""
 //                Now, let’s bring your alter ego to life:
-//                
+//
 //                1. Give them a name: Choose a name that resonates with their identity.
 //                2. Define their personality: Who are they, and how do they behave?
 //                3. Create their story: What is their background, motivation, and purpose?
@@ -271,10 +271,10 @@ import SwiftUI
 //        }
 //        .environment(\.layoutDirection, .leftToRight) // تحديد اتجاه التخطيط هنا
 //        .navigationTitle("Reading")
-//       
+//
 //
 //    }
-//    
+//
 //}
 
 

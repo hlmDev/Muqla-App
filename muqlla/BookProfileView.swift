@@ -29,7 +29,7 @@ import SwiftUI
 //                                        .bold()
 //                                        .foregroundColor(.white)
 //                                    Spacer()
-//                                    
+//
 //                                    HStack {
 //                                        Text("Incomplete")
 //                                            .foregroundColor(.white)
@@ -41,16 +41,16 @@ import SwiftUI
 //                            )
 //                    }
 //                    .padding(.top)
-//                    
+//
 //                    // Book Details Section
 //                    VStack(alignment: .leading, spacing: 8) {
 //                        InfoRow(label: NSLocalizedString("Author:", comment: ""), value: NSLocalizedString("Alanoud Alsamil", comment: ""))
 //                        InfoRow(label: NSLocalizedString("Co-authors:", comment: ""), value: NSLocalizedString("Reem, Shahad, Ahlam", comment: ""))
 //                    }
 //                    .padding(.top)
-//                    
+//
 //                    Divider()
-//                    
+//
 //                    // Ratings and Reader Count Section
 //                    HStack {
 //                        Text("★★★☆☆")
@@ -61,10 +61,10 @@ import SwiftUI
 //                    .frame(maxWidth: .infinity)
 //                    .multilineTextAlignment(.center)
 //                    .padding(.bottom)
-//                    
+//
 //                    // Start Reading Button
 //                    NavigationLink(destination: BookContentView()) {
-//                       
+//
 //                        Text("Start Reading")
 //                            .bold()
 //                            .font(.system(size: 20))
@@ -75,14 +75,14 @@ import SwiftUI
 //                            .cornerRadius(25)
 //                    }
 //                    .padding(.horizontal)
-//                    
+//
 //                    Spacer()
-//                    
+//
 //                    // Start New Chapter Button
 //                    BookActionButton()
 //                        .padding(.bottom, 2)
 //                        .padding(.horizontal)
-//                    
+//
 //                    // Additional Book Details Section (Horizontal Scroll)
 //                    ScrollView(.horizontal, showsIndicators: false) {
 //                        HStack(spacing: 32) {
@@ -97,7 +97,7 @@ import SwiftUI
 //                    .background(Color.black)
 //                    .foregroundColor(.white)
 //                    .padding(.bottom, 20)
-//                    
+//
 //                    // Book Description Section
 //                    VStack(alignment: .leading) {
 //                        Text("Book Description")
@@ -112,7 +112,7 @@ import SwiftUI
 //                        }
 //                    }
 //                    .padding(.horizontal)
-//                    
+//
 //                    Spacer()
 //                }
 //            }
@@ -127,7 +127,7 @@ import SwiftUI
 //struct DetailColumnView: View {
 //    let title: String
 //    let value: String
-//    
+//
 //    var body: some View {
 //        VStack {
 //            Text(title)
@@ -166,7 +166,7 @@ import SwiftUI
 //
 //struct BookActionButton: View {
 //    @State private var showWriteBookView = false // State to control navigation
-//    
+//
 //    var body: some View {
 //        Button(action: {
 //            showWriteBookView = true
@@ -195,7 +195,7 @@ import SwiftUI
 //struct InfoRow: View {
 //    let label: String
 //    let value: String
-//    
+//
 //    var body: some View {
 //        HStack(spacing: 16) {
 //            Text(label)

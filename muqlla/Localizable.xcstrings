@@ -212,7 +212,6 @@
 
     },
     "Book Date" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -255,7 +254,6 @@
       }
     },
     "Book Image" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -266,7 +264,6 @@
       }
     },
     "Book Name" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -535,7 +532,7 @@
     "Enter your book title" : {
 
     },
-    "Enter Your Name" : {
+    "Enter your name" : {
 
     },
     "Error" : {
@@ -936,7 +933,7 @@
     "Write Your Content" : {
 
     },
-    "حذف" : {
+    "Your name" : {
 
     }
   },
