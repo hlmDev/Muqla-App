@@ -291,9 +291,9 @@ struct BookContentView: View {
                     .padding(.top)
                 
                 // Description header
-                Text("Description: ")
-                    .bold()
-                    .font(.system(size: 20))
+//                Text("Description: ")
+//                    .bold()
+//                    .font(.system(size: 20))
                 
                 Text(book.title)
                     .bold()

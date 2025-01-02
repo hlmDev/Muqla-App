@@ -285,14 +285,12 @@ struct HomeContentView: View {
             }
             .navigationBarHidden(true)
             .background(Color.black.edgesIgnoringSafeArea(.all))
-            
             .onAppear {
-                          bookVM.fetchBooks()  // Add this to refresh when view appears
-                      }
+                bookVM.fetchBooks() // Remove the argument
+            }
         }
     }
 }
-
 
 //struct BookCard<Destination: View>: View {
 //    let title: String

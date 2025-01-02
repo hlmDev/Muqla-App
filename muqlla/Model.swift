@@ -99,11 +99,12 @@ struct Book: Identifiable {
 //    }
     
     struct Novel: Identifiable {
-        var id: Int
-        var name: String
-        var date: String
-        var color: String
+        let id: Int
+        let name: String
+        let date: String
+        let color: String
     }
+    
 
     struct Books: Identifiable {
         let id: UUID

@@ -188,6 +188,7 @@ class CloudKitUserViewModel: ObservableObject {
 //    }
 //}
 
+// 1. First, let's modify the BookViewModel to filter out drafts from the home view
 class BookViewModel: ObservableObject {
     private let container = CKContainer(identifier: "iCloud.com.a.muqlla")
     @Published var books: [Book] = []
@@ -197,52 +198,49 @@ class BookViewModel: ObservableObject {
     @Published var error: String = ""
     
     let filters = ["All", "Complete", "Incomplete"]
+    private var currentUserName: String = ""
     
     init() {
-        setupCurrentUserReference()
-    }
-    
-    private func setupCurrentUserReference() {
-        guard let authorName = UserDefaults.standard.string(forKey: "authorName") else {
-            print("⚠️ No author name found")
-            return
-        }
-        print("📚 Author name found: \(authorName)")
-        fetchBooks()
+        currentUserName = UserDefaults.standard.string(forKey: "authorName") ?? ""
+        print("👤 Current user: \(currentUserName)")
     }
     
     func fetchBooks() {
         isLoading = true
         print("🔄 Fetching books...")
         
-        // Simple predicate to get all books
+        // Query all non-draft books only
         let query = CKQuery(recordType: "Book", predicate: NSPredicate(value: true))
         
         container.publicCloudDatabase.perform(query, inZoneWith: nil) { [weak self] records, error in
             DispatchQueue.main.async {
                 self?.isLoading = false
+                guard let self = self else { return }
                 
                 if let error = error {
                     print("❌ Error fetching books: \(error.localizedDescription)")
-                    self?.error = error.localizedDescription
+                    self.error = error.localizedDescription
                     return
                 }
                 
                 guard let records = records else {
                     print("⚠️ No records found")
-                    self?.error = "No books found"
+                    self.error = "No books found"
                     return
                 }
                 
-                print("✅ Found \(records.count) books")
+                print("✅ Found \(records.count) total records")
                 
-                // Reset books array before adding new ones
-                self?.books = records.map { record in
+                self.books = records.compactMap { record in
+                    let isDraft = (record["isDraft"] as? Int) ?? 0
+                    
+                    // Skip all drafts in home view
+                    guard isDraft == 0 else { return nil }
+                    
                     let title = record["title"] as? String ?? "Untitled"
-                    let status = record["status"] as? String ?? "Incomplete"
-                    let isDraft = record["isDraft"] as? Int ?? 0
                     let authorRef = record["author"] as? CKRecord.Reference
                     let authorName = authorRef?.recordID.recordName ?? "Unknown Author"
+                    let isCollab = (record["collaborators"] as? [CKRecord.Reference])?.count ?? 0 > 1
                     
                     print("📖 Loading book: \(title) by \(authorName)")
                     
@@ -250,15 +248,16 @@ class BookViewModel: ObservableObject {
                         id: record.recordID.recordName,
                         title: title,
                         author: authorName,
-                        status: status,
-                        color: .blue,
+                        status: isDraft == 1 ? "Draft" : "Published",
+                        color: isCollab ? .purple : .blue,
                         isDraft: isDraft,
-                        isCollaborative: (record["collaborators"] as? [CKRecord.Reference])?.count ?? 0 > 1,
-                        description: record["description"] as? String
+                        isCollaborative: isCollab,
+                        description: record["description"] as? String,
+                        content: record["content"] as? String
                     )
                 }
                 
-                print("📚 Total books loaded: \(self?.books.count ?? 0)")
+                print("📚 Successfully loaded \(self.books.count) published books")
             }
         }
     }
@@ -267,70 +266,147 @@ class BookViewModel: ObservableObject {
         books.filter { book in
             let matchesFilter = selectedFilter == "All" || book.status == selectedFilter
             let matchesSearch = searchText.isEmpty || book.title.localizedCaseInsensitiveContains(searchText)
-            return matchesFilter && matchesSearch
+            // Ensure no drafts appear in filtered results
+            return matchesFilter && matchesSearch && book.isDraft == 0
         }
     }
 }
 
-
-
+// 2. Update NovelViewModel to handle draft deletion
 class NovelViewModel: ObservableObject {
     @Published var novels: [Novel] = []
     @Published var isLoading: Bool = false
-    @Published var error: String = ""  // Added error property
+    @Published var error: String = ""
+    @Published var currentTab: Int = 0
+
     private let container = CKContainer(identifier: "iCloud.com.a.muqlla")
+    private var currentUserName: String = ""
+    private var recordIDs: [Int: CKRecord.ID] = [:]
     
     init() {
-        fetchBooks()
+        currentUserName = UserDefaults.standard.string(forKey: "authorName") ?? ""
+        print("👤 Current user in NovelViewModel: \(currentUserName)")
     }
     
-    func fetchBooks() {
+    func fetchBooks(forTab selectedTab: Int) {
         isLoading = true
+        print("🔄 Fetching books for tab: \(selectedTab)")
+        
+        // Only fetch if we're on the Drafts tab (tab 0)
+        if selectedTab != 0 {
+            novels = []  // Clear novels for other tabs
+            isLoading = false
+            return
+        }
+        
         let query = CKQuery(recordType: "Book", predicate: NSPredicate(value: true))
         
         container.publicCloudDatabase.perform(query, inZoneWith: nil) { [weak self] records, error in
             DispatchQueue.main.async {
-                self?.isLoading = false
+                guard let self = self else { return }
+                self.isLoading = false
                 
                 if let error = error {
-                    self?.error = error.localizedDescription
-                    print("CloudKit error: \(error.localizedDescription)")
+                    print("❌ Error fetching drafts: \(error.localizedDescription)")
+                    self.error = "Failed to fetch drafts: \(error.localizedDescription)"
                     return
                 }
                 
                 guard let records = records else {
-                    self?.error = "No records found"
+                    print("⚠️ No records found")
                     return
                 }
                 
-                self?.novels = records.map { record in
-                    Novel(
-                        id: record.recordID.hashValue,
-                        name: record["title"] as? String ?? "",
-                        date: (record["date"] as? Date)?.formatted() ?? "",
+                print("✅ Found \(records.count) total records")
+                
+                // Clear existing record IDs
+                self.recordIDs.removeAll()
+                
+                // Only show drafts in the drafts tab
+                self.novels = records.compactMap { record in
+                    let isDraft = (record["isDraft"] as? Int) ?? 0
+                    let authorRef = record["author"] as? CKRecord.Reference
+                    let authorName = authorRef?.recordID.recordName ?? ""
+                    
+                    // Only include drafts by current user
+                    guard isDraft == 1 && authorName == self.currentUserName else { return nil }
+                    
+                    let title = record["title"] as? String ?? ""
+                    let id = record.recordID.hashValue
+                    
+                    // Store the record ID
+                    self.recordIDs[id] = record.recordID
+                    
+                    print("📖 Loading draft: \(title)")
+                    
+                    return Novel(
+                        id: id,
+                        name: title,
+                        date: Date().formatted(),
                         color: "blue"
                     )
                 }
+                
+                print("📚 Successfully loaded \(self.novels.count) drafts")
             }
         }
     }
     
     func deleteNovel(id: Int) {
-        novels.removeAll { $0.id == id }
-    }
-}
-
-
-//class NovelViewModel: ObservableObject {
-//    @Published var novels: [Novel] = [
-//        Novel(id: 1, name: "Name", date: "2024-06-17", color: "purple"),
-//        Novel(id: 2, name: "Name", date: "2024-06-18", color: "blue"),
-//        Novel(id: 3, name: "Name", date: "2024-06-19", color: "purple")
-//    ]
-//
-//    func deleteNovel(id: Int) {
-//        novels.removeAll { $0.id == id }
-//    }
-//}
+          print("🗑 Starting deletion process...")
+          print("📝 Attempting to delete novel with ID: \(id)")
+          
+          // Get the stored record ID
+          guard let recordID = recordIDs[id] else {
+              print("❌ No record ID found for novel with ID: \(id)")
+              return
+          }
+          
+          // Log current state
+          print("📊 Current novels count: \(novels.count)")
+          
+          // Remove from local array and verify removal
+          novels.removeAll { $0.id == id }
+          print("✅ Removed from local array. New count: \(novels.count)")
+          
+          print("🔄 Deleting CloudKit record: \(recordID.recordName)")
+          
+          container.publicCloudDatabase.delete(withRecordID: recordID) { [weak self] (deletedRecordID, error) in
+              DispatchQueue.main.async {
+                  if let error = error {
+                      print("❌ CloudKit deletion error: \(error.localizedDescription)")
+                      self?.error = "Failed to delete draft: \(error.localizedDescription)"
+                      print("🔄 Refreshing books list due to error...")
+                      self?.fetchBooks(forTab: self?.currentTab ?? 0)  // Use stored tab value
+                  } else {
+                      print("✅ CloudKit deletion successful")
+                      print("🗑 Removed record ID: \(recordID.recordName)")
+                      // Remove the record ID from storage
+                      self?.recordIDs.removeValue(forKey: id)
+                      print("✅ Cleanup completed")
+                      
+                      // Refresh the list
+                      self?.fetchBooks(forTab: self?.currentTab ?? 0)  // Use stored tab value
+                      
+                      // Verify final state
+                      print("📊 Final novels count: \(self?.novels.count ?? 0)")
+                  }
+              }
+          }
+      }
+  }
+    
+    
+    //class NovelViewModel: ObservableObject {
+    //    @Published var novels: [Novel] = [
+    //        Novel(id: 1, name: "Name", date: "2024-06-17", color: "purple"),
+    //        Novel(id: 2, name: "Name", date: "2024-06-18", color: "blue"),
+    //        Novel(id: 3, name: "Name", date: "2024-06-19", color: "purple")
+    //    ]
+    //
+    //    func deleteNovel(id: Int) {
+    //        novels.removeAll { $0.id == id }
+    //    }
+    //}
 
 

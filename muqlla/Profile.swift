@@ -44,38 +44,83 @@ import CloudKit
 //    }
 //}
 
+// NovelViewModel.swift
+
+// Profile.swift
 struct NovelListView: View {
     @StateObject private var viewModel = NovelViewModel()
     @State private var selectedTab = 0
-    @State private var selectedNavIndex = 2
-
+    @State private var showDeleteAlert = false
+    @State private var novelToDelete: Novel?
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
                 TopTabsView(selectedTab: $selectedTab)
-
-                ScrollView {
-                    VStack(spacing: 15) {
-                        // Correctly bind the novels array
-                        ForEach($viewModel.novels) { $novel in
-                            NovelRowView(
-                                novel: $novel, // Pass the binding to NovelRowView
-                                selectedTab: selectedTab,
-                                deleteAction: {
-                                    viewModel.deleteNovel(id: novel.id)
-                                }
-                            )
-                        }
+                    .onChange(of: selectedTab) { newTab in
+                        // Fetch books whenever tab changes
+                        viewModel.fetchBooks(forTab: newTab)
                     }
-                    .padding()
+                
+                if viewModel.isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                } else if selectedTab != 0 {
+                    // Show nothing for Collabs and Published tabs
+                    Text(selectedTab == 1 ? "No collaborations found" : "No published books found")
+                        .foregroundColor(.gray)
+                        .padding()
+                } else if viewModel.novels.isEmpty {
+                    Text("No drafts found")
+                        .foregroundColor(.gray)
+                        .padding()
+                } else {
+                    ScrollView {
+                        VStack(spacing: 15) {
+                            ForEach(viewModel.novels) { novel in
+                                NovelRowView(
+                                    novel: .constant(novel),
+                                    selectedTab: selectedTab,
+                                    deleteAction: {
+                                        novelToDelete = novel
+                                        showDeleteAlert = true
+                                    }
+                                )
+                            }
+                        }
+                        .padding()
+                    }
                 }
             }
-           
+            .navigationBarHidden(true)
+            .alert(isPresented: $showDeleteAlert) {
+                Alert(
+                    title: Text("Delete Draft"),
+                    message: Text("Are you sure you want to delete this draft? This action cannot be undone."),
+                    primaryButton: .destructive(Text("Delete")) {
+                        if let novel = novelToDelete {
+                            viewModel.deleteNovel(id: novel.id)
+                            // After deletion, refresh the current tab
+                            viewModel.fetchBooks(forTab: selectedTab)
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
+            .alert("Error", isPresented: .constant(!viewModel.error.isEmpty)) {
+                Button("OK") {
+                    viewModel.error = ""
+                }
+            } message: {
+                Text(viewModel.error)
+            }
+            .onAppear {
+                // Initial fetch with current selected tab
+                viewModel.fetchBooks(forTab: selectedTab)
+            }
         }
     }
 }
-
-
 //class NovelViewModel: ObservableObject {
 //    @Published var novels: [Novel] = []
 //    private let container = CKContainer(identifier: "iCloud.com.a.muqlla")

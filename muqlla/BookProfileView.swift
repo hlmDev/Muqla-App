@@ -285,7 +285,7 @@ struct BookProfileView: View {
     @Environment(\.dismiss) var dismiss
     let book: Book
     @StateObject private var bookVM = BookViewModel()
-    
+    @State private var selectedTab: String = "home"
     var body: some View {
         ScrollView(.vertical, showsIndicators: true) {
             VStack {

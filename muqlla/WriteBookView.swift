@@ -26,37 +26,46 @@ struct WriteBookView: View {
     
     
     func saveBook() {
+        guard !title.isEmpty else { return }
+        print("📚 Starting to save book: \(title)")
+        
         let container = CKContainer(identifier: "iCloud.com.a.muqlla")
         let record = CKRecord(recordType: "Book")
-       
+        
+        // Create author reference
         let authorRecordID = CKRecord.ID(recordName: cloudKitVM.authorName)
         let authorReference = CKRecord.Reference(recordID: authorRecordID, action: .none)
-       
-        record["author"] = authorReference
-        record["title"] = title
-        record["content"] = bookContent  // Make sure to save the content
-        record["description"] = description
-        record["createdAt"] = Date()
-        record["status"] = "Published"
-        record["isDraft"] = 0
-        record["collaborators"] = [authorReference]
-        record["collaboratorsCount"] = collaboratorsCount
-
+        
+        // Set basic book information using setValue
+        record.setValue(authorReference, forKey: "author")
+        record.setValue(title, forKey: "title")
+        record.setValue(bookContent, forKey: "content")
+        record.setValue(description, forKey: "description")
+        record.setValue(Date(), forKey: "createdAt")
+        record.setValue("Published", forKey: "status")
+        record.setValue(0, forKey: "isDraft")
+        record.setValue([authorReference], forKey: "collaborators")
+        record.setValue(collaboratorsCount, forKey: "collaboratorsCount")
+        
         // Add cover image if available
         if let imageData = selectedImageData {
             let asset = CKAsset(fileURL: saveImageTemporarily(imageData))
-            record["coverImage"] = asset
+            record.setValue(asset, forKey: "coverImage")
         }
-       
-        container.publicCloudDatabase.save(record) { record, error in
+        
+        container.publicCloudDatabase.save(record) { savedRecord, error in
             DispatchQueue.main.async {
                 if let error = error {
-                    errorMessage = "Failed to save: \(error.localizedDescription)"
-                    showError = true
+                    print("❌ Error saving book: \(error.localizedDescription)")
+                    self.errorMessage = "Failed to save: \(error.localizedDescription)"
+                    self.showError = true
                     return
                 }
-                print("Book saved successfully")
-                dismiss()
+                
+                print("✅ Book saved successfully")
+                // Refresh book list before dismissing
+                self.bookVM.fetchBooks()
+                self.dismiss()
             }
         }
     }
@@ -98,36 +107,44 @@ struct WriteBookView: View {
 //    }
     
     func saveToDraft() {
+        guard !title.isEmpty else { return }
+        print("📝 Starting to save draft: \(title)")
+        
         let container = CKContainer(identifier: "iCloud.com.a.muqlla")
         let record = CKRecord(recordType: "Book")
-   
+        
+        // Create author reference
         let authorRecordID = CKRecord.ID(recordName: cloudKitVM.authorName)
         let authorReference = CKRecord.Reference(recordID: authorRecordID, action: .none)
-   
-        record["author"] = authorReference
-        record["title"] = title
-        record["content"] = bookContent
-        record["description"] = description
-        record["createdAt"] = Date()
-        record["status"] = "Draft"
-        record["isDraft"] = 1
-        record["collaborators"] = [authorReference]
-        record["collaboratorsCount"] = collaboratorsCount
-
+        
+        // Set basic book information using setValue
+        record.setValue(authorReference, forKey: "author")
+        record.setValue(title, forKey: "title")
+        record.setValue(bookContent, forKey: "content")
+        record.setValue(description, forKey: "description")
+        record.setValue(Date(), forKey: "createdAt")
+        record.setValue("Draft", forKey: "status")
+        record.setValue(1, forKey: "isDraft")
+        record.setValue([authorReference], forKey: "collaborators")
+        record.setValue(collaboratorsCount, forKey: "collaboratorsCount")
+        
         // Add cover image if available
         if let imageData = selectedImageData {
             let asset = CKAsset(fileURL: saveImageTemporarily(imageData))
-            record["coverImage"] = asset
+            record.setValue(asset, forKey: "coverImage")
         }
-   
-        container.publicCloudDatabase.save(record) { record, error in
+        
+        container.publicCloudDatabase.save(record) { savedRecord, error in
             DispatchQueue.main.async {
                 if let error = error {
-                    errorMessage = "Failed to save draft: \(error.localizedDescription)"
-                    showError = true
+                    print("❌ Error saving draft: \(error.localizedDescription)")
+                    self.errorMessage = "Failed to save draft: \(error.localizedDescription)"
+                    self.showError = true
                     return
                 }
-                dismiss()
+                
+                print("✅ Draft saved successfully")
+                self.dismiss()
             }
         }
     }
@@ -137,7 +154,12 @@ struct WriteBookView: View {
         let fileName = UUID().uuidString + ".jpg"
         let fileURL = temporaryDirectory.appendingPathComponent(fileName)
         
-        try? imageData.write(to: fileURL)
+        do {
+            try imageData.write(to: fileURL)
+            print("✅ Image saved temporarily at: \(fileURL)")
+        } catch {
+            print("❌ Error saving image: \(error)")
+        }
         return fileURL
     }
 
