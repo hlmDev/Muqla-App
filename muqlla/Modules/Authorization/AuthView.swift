@@ -9,9 +9,6 @@ import SwiftUI
 import Combine
 
 struct AuthView: View {
-    
-    
-    
     @State var email: String = ""
     @State var password: String = ""
     
@@ -19,6 +16,7 @@ struct AuthView: View {
         ZStack {
             backgroundEffect
             content
+                .padding(.bottom, 100)
                 .wrapInsideAutoFocusScrollView()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
