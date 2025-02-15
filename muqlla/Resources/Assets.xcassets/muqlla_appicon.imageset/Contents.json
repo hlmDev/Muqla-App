@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "muqlla_appicon.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
