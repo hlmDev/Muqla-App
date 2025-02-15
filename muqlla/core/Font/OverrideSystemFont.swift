@@ -59,7 +59,7 @@ extension Font {
         return Font.custom("IBMPlexSansArabic-Regular", size: UIFont.preferredFont(forTextStyle: .caption1).pointSize)
     }
 
-    public static func system(size: CGFloat, weight: Font.Weight = .regular, design: Font.Design = .default) -> Font {
+    public static func system(size: CGFloat, weight: Font.Weight? = .regular, design: Font.Design? = .default) -> Font {
         var font = "IBMPlexSansArabic-Regular"
         switch weight {
         case .bold: font = "IBMPlexSansArabic-Bold"
