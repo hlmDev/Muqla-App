@@ -8,6 +8,31 @@
 import SwiftUI
 
 
+extension View {
+    func autoFocusable(id: String) -> some View {
+        modifier(AutoFocusModifier(id: id))
+    }
+}
+struct AutoFocusModifier: ViewModifier {
+    let id: String
+    @FocusState private var isFocused: Bool
+    
+    func body(content: Content) -> some View {
+        content
+            .id(id)
+            .focused($isFocused)
+            .preference(key: FocusableFieldPreferenceKey.self, value: [id: isFocused])
+    }
+}
+struct FocusableFieldPreferenceKey: PreferenceKey {
+    static var defaultValue: [String: AnyHashable] = [:]
+    
+    static func reduce(value: inout [String: AnyHashable], nextValue: () -> [String: AnyHashable]) {
+        value.merge(nextValue()) { $1 }
+    }
+}
+
+
 public struct AutoFocusScrollView<Content: View>: View {
     let content: Content
     
