@@ -103,41 +103,16 @@ struct HomePageView: View {
 
 
     var body: some View {
-        TabView(selection: $selectedTab) {
-            NavigationStack {
-                HomeContentView(bookVM: bookVM)
-            }
-            .tabItem {
-                Image(systemName: "house.fill")
-                Text("Home")
-            }
-            .tag("home")
-            .accessibilityLabel("Home tab")
-            .accessibilityHint("View all books")
-
-            NavigationStack {
-                WriteBookView()
-            }
-            .tabItem {
-                Image(systemName: "pencil")
-                Text("Write")
-            }
-            .tag("write")
-            .accessibilityLabel("Write tab")
-            .accessibilityHint("Write a new book")
-
-            NavigationStack {
-                NovelListView()
-            }
-            .tabItem {
-                Image(systemName: "person.circle.fill")
-                Text("Profile")
-            }
-            .tag("profile")
-            .accessibilityLabel("Profile tab")
-            .accessibilityHint("View your profile information")
+        NavigationStack {
+            HomeContentView(bookVM: bookVM)
         }
-        .accentColor(.green)
+        .tabItem {
+            Image(systemName: "house.fill")
+            Text("Home")
+        }
+        .tag("home")
+        .accessibilityLabel("Home tab")
+        .accessibilityHint("View all books")
     }
 }
 

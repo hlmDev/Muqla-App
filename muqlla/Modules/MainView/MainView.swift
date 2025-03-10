@@ -18,6 +18,7 @@ struct MainView: View {
         ZStack {
             MuqlaTabBarController(selection: $tabSelection) {
                 homeTab
+                writePageTab
                 settingsTab
             }
         }
@@ -30,6 +31,10 @@ struct MainView: View {
     var settingsTab: some View {
         NovelListView()
             .tabBarItem(tab: .settings, selection: $tabSelection)
+    }
+    var writePageTab: some View {
+        WriteBookView()
+            .tabBarItem(tab: .writePage, selection: $tabSelection)
     }
 }
 
