@@ -25,12 +25,12 @@ struct MuqllaApp: App {
     var body: some Scene {
         WindowGroup {
             if vm.isNewUser {
-                KitSplash()
+                AuthView()
                     .environmentObject(vm)
                     .preferredColorScheme(.dark)
 
             } else {
-                HomePageView()
+                MainView()
                     .preferredColorScheme(.dark)
 
             }

@@ -64,15 +64,32 @@ struct AuthView: View {
         VStack {
             MQText("Sign In", color: .cMuted)
             HStack {
-                googleButton
                 appleButton
+                googleButton
             }
         }
     }
     var appleButton: some View {
-        MQGlowingButton.appleLoginButton {
-            print("1")
-        }
+        VStack{}
+//        SignInWithAppleButton { request in
+//            request.requestedScopes = [.fullName, .email]
+//        } onCompletion: { result in
+//            switch result {
+//            case .success(let authorization):
+////                if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+////                    vm.saveUserToCloudKit(credential: appleIDCredential)
+////                }
+//                break
+//            case .failure(let error):
+////                vm.error = "Sign in failed: \(error.localizedDescription)"
+//                break
+//            }
+//        }
+//        .signInWithAppleButtonStyle(.white)
+//        .frame(maxWidth: 150, idealHeight: 20)
+//        .accessibilityLabel("Sign in with Apple")
+//        .accessibilityHint("Double tap to sign in using your Apple ID. This will request access to your name and email")
+//        .accessibilityAddTraits(.isButton)
     }
     var googleButton: some View {
         MQGlowingButton.googleLoginButton {
