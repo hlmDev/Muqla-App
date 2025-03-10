@@ -20,19 +20,23 @@ import SwiftUI
 
 @main
 struct MuqllaApp: App {
-    @StateObject private var vm = CloudKitUserViewModel()
+    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+    @StateObject private var global = Global.shared
     
     var body: some Scene {
         WindowGroup {
-            if vm.isNewUser {
-                AuthView()
-                    .environmentObject(vm)
-                    .preferredColorScheme(.dark)
-
-            } else {
-                MainView()
-                    .preferredColorScheme(.dark)
-
+            Group {
+                if let isAuthenticated = global.isAuthenticated {
+                    if isAuthenticated {
+                        MainView()
+                            .preferredColorScheme(.dark)
+                        
+                    } else {
+                        AuthView()
+                            .preferredColorScheme(.dark)
+                    }
+                }
             }
         }
     }

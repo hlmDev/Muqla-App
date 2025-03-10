@@ -11,4 +11,5 @@ import SwiftUI
 class Global: ObservableObject {
     static let shared = Global()
     @Published var showTabBar: Bool = true
+    @Published var isAuthenticated: Bool? = nil
 }

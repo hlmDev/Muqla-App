@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 
 struct AuthView: View {
+    @ObservedObject var viewModel = AuthViewModel()
     @State var email: String = ""
     @State var password: String = ""
     
