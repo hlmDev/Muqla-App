@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @State private var tabSelection: TabBarItem = .settings
+    @State private var tabSelection: TabBarItem = .home
     
     var body: some View {
         tabBar

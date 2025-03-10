@@ -26,6 +26,7 @@ class SupabaseManager {
     func signOut() {
         Task {
             try await supabase.auth.signOut()
+            Global.shared.isAuthenticated = false
         }
     }
     

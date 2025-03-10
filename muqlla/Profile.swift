@@ -21,6 +21,13 @@ struct NovelListView: View {
                 // List of Novels
                 ScrollView {
                     VStack(spacing: 15) {
+                        Button {
+                            SupabaseManager.shared.signOut()
+                        } label: {
+                            Text("Sign Out")
+                        }
+                        .padding(.top, 15)
+
                         ForEach(viewModel.novels) { novel in
                             NovelRowView(novel: novel, selectedTab: selectedTab, deleteAction: {
                                 viewModel.deleteNovel(id: novel.id) // Call delete function
