@@ -71,7 +71,9 @@ struct AuthView: View {
         }
     }
     var appleButton: some View {
-        VStack{}
+        MQGlowingButton.appleLoginButton {
+            viewModel.authenticateWithApple()
+        }
 //        SignInWithAppleButton { request in
 //            request.requestedScopes = [.fullName, .email]
 //        } onCompletion: { result in
