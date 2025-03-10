@@ -360,6 +360,7 @@
       }
     },
     "Profile" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -368,9 +369,6 @@
           }
         }
       }
-    },
-    "Profile tab" : {
-
     },
     "Publish" : {
       "localizations" : {
@@ -441,6 +439,9 @@
     "Sign in with Apple" : {
 
     },
+    "Sign Out" : {
+
+    },
     "Skip" : {
       "localizations" : {
         "ar" : {
@@ -505,6 +506,7 @@
       }
     },
     "View your profile information" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -515,6 +517,7 @@
       }
     },
     "Write" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -523,12 +526,6 @@
           }
         }
       }
-    },
-    "Write a new book" : {
-
-    },
-    "Write tab" : {
-
     },
     "Write your book content here" : {
       "localizations" : {
