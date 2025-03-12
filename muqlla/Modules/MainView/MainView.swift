@@ -25,7 +25,7 @@ struct MainView: View {
     }
     
     var homeTab: some View {
-        HomePageView()
+        HomeView()
             .tabBarItem(tab: .home, selection: $tabSelection)
     }
     var settingsTab: some View {

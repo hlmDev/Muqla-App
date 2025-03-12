@@ -319,9 +319,6 @@
         }
       }
     },
-    "Home tab" : {
-
-    },
     "Incomplete" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -496,6 +493,7 @@
       }
     },
     "View all books" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {

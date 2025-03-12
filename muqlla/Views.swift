@@ -80,7 +80,7 @@ struct KitSplash: View {
                 }
             }
             .navigationDestination(isPresented: $navigateToHome) {
-                HomePageView()
+                HomeView()
                     .navigationBarBackButtonHidden(true)
             }
             .alert("Error", isPresented: .constant(!vm.error.isEmpty)) {
@@ -96,86 +96,7 @@ struct KitSplash: View {
     }
 }
 
-struct HomePageView: View {
-    @StateObject private var bookVM = BookViewModel()
-    @State private var selectedTab = "home"
-    @State private var profVM = NovelListView()
 
-
-    var body: some View {
-        NavigationStack {
-            HomeContentView(bookVM: bookVM)
-        }
-        .tabItem {
-            Image(systemName: "house.fill")
-            Text("Home")
-        }
-        .tag("home")
-        .accessibilityLabel("Home tab")
-        .accessibilityHint("View all books")
-    }
-}
-
-struct HomeContentView: View {
-    @ObservedObject var bookVM: BookViewModel
-
-    var body: some View {
-        VStack {
-            HStack {
-                TextField("Search", text: $bookVM.searchText)
-                    .padding(10)
-                    .background(Color(.systemGray5).opacity(0.2))
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-                    .accessibilityLabel("Search books")
-                    .accessibilityHint("Enter text to search for books")
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.white)
-                    .accessibilityLabel("Search")
-            }
-            .padding(.horizontal)
-
-            HStack {
-                ForEach(bookVM.filters, id: \ .self) { filter in
-                    Button(action: {
-                        bookVM.selectedFilter = filter
-                    }) {
-                        Text(filter)
-                            .foregroundColor(bookVM.selectedFilter == filter ? .black : .white)
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 15)
-                            .background(bookVM.selectedFilter == filter ? Color.green : Color.gray.opacity(0.3))
-                            .cornerRadius(20)
-                    }
-                    .accessibilityLabel("\(filter) filter")
-                    .accessibilityHint("Show \(filter.lowercased()) books")
-                    .accessibilityAddTraits(bookVM.selectedFilter == filter ? .isSelected : [])
-                }
-            }
-            .padding(.horizontal)
-
-            ScrollView {
-                if bookVM.filteredBooks.isEmpty {
-                    Text("No books found")
-                        .foregroundColor(.gray)
-                        .padding()
-                        .accessibilityLabel("No books found")
-                } else {
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                        ForEach(bookVM.filteredBooks) { book in
-                            BookCard(title: book.title, author: book.author, status: book.status, color: book.color)
-                                .frame(height: 200)
-                                .accessibilityElement(children: .combine)
-                                .accessibilityLabel("\(book.title) by \(book.author)")
-                                .accessibilityHint("Status: \(book.status)")
-                        }
-                    }
-                    .padding()
-                }
-            }
-        }
-    }
-}
 
 struct BookCard: View {
     let title: String

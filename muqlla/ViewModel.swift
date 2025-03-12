@@ -106,28 +106,6 @@ class CloudKitUserViewModel: ObservableObject {
     }
 }
 
-// Rest of your ViewModels remain the same
-class BookViewModel: ObservableObject {
-    @Published var books: [Book] = [
-        Book(title: "Wish I Were My Alter Ego", author: "Alanoud Alsamil", status: "Incomplete", color: .blue),
-        Book(title: "Joseph Stalin's Vision of Socialism", author: "Alanoud Alsamil", status: "Complete", color: .purple),
-        Book(title: "Nietzsche's Morality", author: "Alanoud Alsamil", status: "Incomplete", color: .green),
-        Book(title: "In Which Mental Stage Is Your Mind Stuck?", author: "Alanoud Alsamil", status: "Complete", color: .brown)
-    ]
-
-    @Published var searchText = ""
-    @Published var selectedFilter = "All"
-
-    let filters = ["All", "Complete", "Incomplete"]
-
-    var filteredBooks: [Book] {
-        books.filter { book in
-            (selectedFilter == "All" || book.status == selectedFilter) &&
-            (searchText.isEmpty || book.title.localizedCaseInsensitiveContains(searchText))
-        }
-    }
-}
-
 class NovelViewModel: ObservableObject {
     @Published var novels: [Novel] = [
         Novel(id: 1, name: "Name", date: "2024-06-17", color: "purple"),
