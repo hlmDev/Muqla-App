@@ -11,9 +11,6 @@
         }
       }
     },
-    "%@ filter" : {
-
-    },
     "Add a title first" : {
       "localizations" : {
         "ar" : {
@@ -428,9 +425,6 @@
       }
     },
     "Settings" : {
-
-    },
-    "Show %@ books" : {
 
     },
     "Sign in with Apple" : {

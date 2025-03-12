@@ -18,7 +18,6 @@ struct HomeView: View {
                     welcomeView
                     searchView
                     categoriesView
-                    filterView
                     booksView
                 }
             }
