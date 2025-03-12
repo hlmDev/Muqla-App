@@ -12,7 +12,7 @@ class SupabaseManager {
     
     static let shared = SupabaseManager()
     
-    private let supabase = SupabaseClient(
+    let supabase = SupabaseClient(
         supabaseURL: URL(string: EnvironmentManager.shared.SUPABASE_URL!)!,
         supabaseKey: EnvironmentManager.shared.SUPABASE_KEY!
     )

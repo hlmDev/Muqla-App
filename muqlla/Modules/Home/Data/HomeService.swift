@@ -11,8 +11,16 @@ class HomeServiceManager {
     
     
     func fetchCategories() async -> Result<[BookCategory], Error> {
-        do {
-            return .success([])
+        do {            
+            let categories: [BookCategory] = try await SupabaseManager.shared.supabase
+                .from("categories")
+                .select()
+                .execute()
+                .value
+            
+            return .success(categories)
+        } catch {
+            return .failure(error)
         }
     }
 }
