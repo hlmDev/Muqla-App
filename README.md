@@ -163,7 +163,8 @@ Controls logic and data flow between Models and Views:
 
 ## ℹ️ More Information
 
-[MUQLA مُقلة 👁️📝](https://qrcodeveloper.com/code/2vV4kGSMlAtX3PZ2)
+[MUQLA مُقلة 👁️📝](https://drive.google.com/file/d/1vQGaXyvgRhYl4WdguZZaG6WFbW4XymqQ/view)
+
 
 ---
 
