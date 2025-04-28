@@ -28,6 +28,7 @@ struct MuqllaApp: App {
                 KitSplash()
                     .environmentObject(vm)
                     .preferredColorScheme(.dark)
+                
 
             } else {
                 HomePageView()

@@ -1,25 +1,105 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@ by %@" : {
+    " Explore the legacy of Alfred Marshall, a pioneer of the neoclassical school of economics.\n                             This book highlights his groundbreaking ideas on utility, supply, and demand, as well as his efforts to make economics accessible. Marshall’s work shaped modern economic thought, emphasizing individual behavior and its influence on production, costs, and market value. A must-read for understanding the foundations of contemporary economics." : {
+      "extractionState" : "manual",
       "localizations" : {
-        "en" : {
+        "ar" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@ by %2$@"
+            "state" : "translated",
+            "value" : "استكشف إرث ألفريد مارشال، رائد المدرسة النيوكلاسيكية في علم الاقتصاد.\nيسلط هذا الكتاب الضوء على أفكاره الرائدة حول المنفعة والعرض والطلب، بالإضافة إلى جهوده لجعل علم الاقتصاد أكثر سهولة واستيعابًا.\n\nساهمت أعمال مارشال في تشكيل الفكر الاقتصادي الحديث، حيث ركزت على السلوك الفردي وتأثيره على الإنتاج والتكاليف وقيمة السوق.\n\nقراءة لا غنى عنها لفهم أسس علم الاقتصاد المعاصر."
           }
         }
       }
     },
-    "%@ filter" : {
+    "%lld Collaborator(s)" : {
 
     },
+    "★★★☆☆" : {
+
+    },
+    "5" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "٥"
+          }
+        }
+      }
+    },
+    "10.7K Readers" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "١٠.٧ الآف قارى"
+          }
+        }
+      }
+    },
+    "10.7K Readers   " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "١٠.٧ الآف قارئ"
+          }
+        }
+      }
+    },
+    "644" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "٦٤٤"
+          }
+        }
+      }
+    },
+    "2025/1/1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "٢٠٢٥/١/١"
+          }
+        }
+      }
+    },
+    "2025\\1 JAN" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "٢٠٢٥ ١/١"
+          }
+        }
+      }
+    },
     "Add a title first" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "أضف العنوان أولاً"
+          }
+        }
+      }
+    },
+    "Alanoud Alsamil" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "العنود الصامل"
           }
         }
       }
@@ -52,7 +132,44 @@
     "App logo pp logo An artistic drawing of an eye with a pencil" : {
 
     },
+    "Are you sure you want to delete this draft? This action cannot be undone." : {
+
+    },
+    "Author" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المؤلف"
+          }
+        }
+      }
+    },
+    "Author:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المؤلف"
+          }
+        }
+      }
+    },
+    "Author: " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المؤلف"
+          }
+        }
+      }
+    },
     "Author: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -62,7 +179,29 @@
         }
       }
     },
+    "Back" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رجوع"
+          }
+        }
+      }
+    },
+    "Back  " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رجوع"
+          }
+        }
+      }
+    },
     "Book content" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -72,12 +211,47 @@
         }
       }
     },
+    "Book Cover" : {
+
+    },
     "Book Date" : {
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "تاريخ الإنشاء"
+          }
+        }
+      }
+    },
+    "Book Description" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ملخص الكتاب "
+          }
+        }
+      }
+    },
+    "Book Description " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ملخص الكتاب "
+          }
+        }
+      }
+    },
+    "Book Description  " : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ملخص الكتاب"
           }
         }
       }
@@ -103,11 +277,25 @@
       }
     },
     "Book title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "عنوان الكتاب"
+          }
+        }
+      }
+    },
+    "Book Title" : {
+
+    },
+    "by" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بواسطة"
           }
         }
       }
@@ -133,11 +321,37 @@
       }
     },
     "Cancel writing" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "إلغاء الكتابة"
+          }
+        }
+      }
+    },
+    "CATEGORY" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التصنيف"
+          }
+        }
+      }
+    },
+    "Check Grammar" : {
+
+    },
+    "Co-authors:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المؤلفون المشاركون"
           }
         }
       }
@@ -185,7 +399,11 @@
         }
       }
     },
+    "Continue" : {
+
+    },
     "Creation date" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -204,6 +422,9 @@
           }
         }
       }
+    },
+    "Delete Draft" : {
+
     },
     "Dismiss error" : {
       "localizations" : {
@@ -226,6 +447,7 @@
       }
     },
     "Double tap to publish your book" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -234,9 +456,6 @@
           }
         }
       }
-    },
-    "Double tap to show save or delete options" : {
-
     },
     "Double tap to sign in using your Apple ID. This will request access to your name and email" : {
       "localizations" : {
@@ -270,6 +489,7 @@
       }
     },
     "Edit" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -279,7 +499,19 @@
         }
       }
     },
+    "English" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الإنجليزية"
+          }
+        }
+      }
+    },
     "Enter text to search for books" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -290,6 +522,7 @@
       }
     },
     "Enter the title of your book" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -298,6 +531,12 @@
           }
         }
       }
+    },
+    "Enter your book title" : {
+
+    },
+    "Enter your name" : {
+
     },
     "Error" : {
       "localizations" : {
@@ -319,7 +558,7 @@
         }
       }
     },
-    "Home tab" : {
+    "Improve Writing" : {
 
     },
     "Incomplete" : {
@@ -339,7 +578,52 @@
     "Key 1" : {
       "extractionState" : "manual"
     },
+    "Key 2" : {
+      "extractionState" : "manual"
+    },
+    "Key 3" : {
+      "extractionState" : "manual"
+    },
+    "Key 4" : {
+      "extractionState" : "manual"
+    },
+    "Key 5" : {
+      "extractionState" : "manual"
+    },
+    "Key 6" : {
+      "extractionState" : "manual"
+    },
+    "Key 7" : {
+      "extractionState" : "manual"
+    },
+    "Key 8" : {
+      "extractionState" : "manual"
+    },
+    "Key 9" : {
+      "extractionState" : "manual"
+    },
+    "Key 10" : {
+      "extractionState" : "manual"
+    },
+    "Key 11" : {
+      "extractionState" : "manual"
+    },
+    "Key 12" : {
+      "extractionState" : "manual"
+    },
+    "LANGUAGE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اللغة"
+          }
+        }
+      }
+    },
     "No books found" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -349,12 +633,49 @@
         }
       }
     },
+    "No collaborations found" : {
+
+    },
+    "No content available" : {
+
+    },
+    "No drafts found" : {
+
+    },
+    "No published books found" : {
+
+    },
+    "Number of Collaborators" : {
+
+    },
     "OK" : {
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "حسنا"
+          }
+        }
+      }
+    },
+    "PAGES" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الصفحات "
+          }
+        }
+      }
+    },
+    "PARTS" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الاجزاء"
           }
         }
       }
@@ -369,7 +690,7 @@
         }
       }
     },
-    "Profile tab" : {
+    "Psychology" : {
 
     },
     "Publish" : {
@@ -383,6 +704,7 @@
       }
     },
     "Publish book" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -391,6 +713,45 @@
           }
         }
       }
+    },
+    "Pycology" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "علم النفس"
+          }
+        }
+      }
+    },
+    "Reading" : {
+
+    },
+    "Reem, Shahad, Ahlam" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ريم ، شهد ، احلام"
+          }
+        }
+      }
+    },
+    "RELEASED" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الإصدار"
+          }
+        }
+      }
+    },
+    "Save" : {
+
     },
     "Save to Draft" : {
       "localizations" : {
@@ -413,6 +774,7 @@
       }
     },
     "Search books" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -423,6 +785,7 @@
       }
     },
     "Select" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -432,7 +795,10 @@
         }
       }
     },
-    "Show %@ books" : {
+    "Select Action" : {
+
+    },
+    "Select AI Function" : {
 
     },
     "Sign in with Apple" : {
@@ -451,7 +817,33 @@
     "Skip onboarding" : {
 
     },
-    "Status: %@" : {
+    "Start New Chapter" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ابدأ فصلًا جديدًا"
+          }
+        }
+      }
+    },
+    "Start Reading" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ابدآ القراءة"
+          }
+        }
+      }
+    },
+    "Start Reading  " : {
+      "extractionState" : "manual"
+    },
+    "Start Writing Your Book" : {
+
+    },
+    "Start writing your book description..." : {
 
     },
     "Step into a world of endless stories" : {
@@ -469,6 +861,7 @@
 
     },
     "Title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -478,10 +871,11 @@
         }
       }
     },
-    "Title: %@" : {
+    "Translate Meaning" : {
 
     },
     "Type your Book.." : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -492,6 +886,7 @@
       }
     },
     "View all books" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -502,6 +897,7 @@
       }
     },
     "View your profile information" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -510,6 +906,20 @@
           }
         }
       }
+    },
+    "Wish I Were My Alter Ego" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ليتني كنت ذاتي الأخرى"
+          }
+        }
+      }
+    },
+    "Wish I Were My Alter Ego   " : {
+      "extractionState" : "manual"
     },
     "Write" : {
       "localizations" : {
@@ -521,13 +931,8 @@
         }
       }
     },
-    "Write a new book" : {
-
-    },
-    "Write tab" : {
-
-    },
     "Write your book content here" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -536,6 +941,12 @@
           }
         }
       }
+    },
+    "Write Your Content" : {
+
+    },
+    "Your name" : {
+
     }
   },
   "version" : "1.0"

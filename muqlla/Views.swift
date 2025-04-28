@@ -1,5 +1,3 @@
-// Views.swift
-// muqlla
 // Created by Ahlam Majed on 19/12/2024.
 
 // Views.swift
@@ -9,6 +7,8 @@
 import SwiftUICore
 import SwiftUI
 import _AuthenticationServices_SwiftUI
+import CloudKit
+
 
 struct KitSplash: View {
     @StateObject private var vm = CloudKitUserViewModel()
@@ -98,22 +98,24 @@ struct KitSplash: View {
 
 struct HomePageView: View {
     @StateObject private var bookVM = BookViewModel()
+    @StateObject private var cloudKitVM = CloudKitUserViewModel()
+    @State private var showNamePrompt = false
     @State private var selectedTab = "home"
-    @State private var profVM = NovelListView()
-
 
     var body: some View {
         TabView(selection: $selectedTab) {
             NavigationStack {
                 HomeContentView(bookVM: bookVM)
+                    .onAppear {
+                        // Refresh books when tab appears
+                        bookVM.fetchBooks()
+                    }
             }
             .tabItem {
                 Image(systemName: "house.fill")
                 Text("Home")
             }
             .tag("home")
-            .accessibilityLabel("Home tab")
-            .accessibilityHint("View all books")
 
             NavigationStack {
                 WriteBookView()
@@ -123,8 +125,6 @@ struct HomePageView: View {
                 Text("Write")
             }
             .tag("write")
-            .accessibilityLabel("Write tab")
-            .accessibilityHint("Write a new book")
 
             NavigationStack {
                 NovelListView()
@@ -134,191 +134,410 @@ struct HomePageView: View {
                 Text("Profile")
             }
             .tag("profile")
-            .accessibilityLabel("Profile tab")
-            .accessibilityHint("View your profile information")
         }
         .accentColor(.green)
+        .onAppear {
+            if cloudKitVM.authorName.isEmpty {
+                showNamePrompt = true
+            }
+            // Initial fetch of books
+            bookVM.fetchBooks()
+        }
+        .sheet(isPresented: $showNamePrompt) {
+            AuthorNameView(viewModel: cloudKitVM, showNamePrompt: $showNamePrompt)
+        }
     }
 }
+
+//struct HomeContentView: View {
+//  @ObservedObject var bookVM: BookViewModel
+//
+//    var body: some View {
+//        NavigationView {
+//            VStack {
+//                HStack {
+//                    TextField("Search", text: $bookVM.searchText)
+//                        .padding(10)
+//                        .background(Color(.systemGray5).opacity(0.2))
+//                        .foregroundColor(.white)
+//                        .cornerRadius(8)
+//                        .accessibilityLabel("Search books")
+//                        .accessibilityHint("Enter text to search for books")
+//                    Image(systemName: "magnifyingglass")
+//                        .foregroundColor(.white)
+//                        .accessibilityLabel("Search")
+//                }
+//                .padding(.horizontal)
+//
+//                HStack {
+//                    ForEach(bookVM.filters, id: \.self) { filter in
+//                        Button(action: {
+//                            bookVM.selectedFilter = filter
+//                        }) {
+//                            Text(filter)
+//                                .foregroundColor(bookVM.selectedFilter == filter ? .black : .white)
+//                                .padding(.vertical, 8)
+//                                .padding(.horizontal, 15)
+//                                .background(bookVM.selectedFilter == filter ? Color.green : Color.gray.opacity(0.3))
+//                                .cornerRadius(20)
+//                        }
+//                        .accessibilityLabel("\(filter) filter")
+//                        .accessibilityHint("Show \(filter.lowercased()) books")
+//                        .accessibilityAddTraits(bookVM.selectedFilter == filter ? .isSelected : [])
+//                    }
+//                }
+//                .padding(.horizontal)
+//
+//                ScrollView {
+//                    if bookVM.filteredBooks.isEmpty {
+//                        Text("No books found")
+//                            .foregroundColor(.gray)
+//                            .padding()
+//                            .accessibilityLabel("No books found")
+//                    } else {
+//                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
+//                            ForEach(bookVM.filteredBooks) { book in
+//                                BookCard(
+//                                    title: book.title,
+//                                    author: book.author,
+//                                    status: book.status,
+//                                    color: book.color,
+//                                    destination: BookProfileView() // Navigate to BookProfileView
+//                                )
+//                                .frame(height: 200)
+//                                .accessibilityElement(children: .combine)
+//                                .accessibilityLabel("\(book.title) by \(book.author)")
+//                                .accessibilityHint("Status: \(book.status)")
+//                            }
+//                        }
+////                        .padding()
+//                    }
+//                }
+//            }
+////            .navigationTitle("")
+//        }
+//    }
+//}
 
 struct HomeContentView: View {
     @ObservedObject var bookVM: BookViewModel
-
+    
     var body: some View {
-        VStack {
-            HStack {
-                TextField("Search", text: $bookVM.searchText)
-                    .padding(10)
-                    .background(Color(.systemGray5).opacity(0.2))
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-                    .accessibilityLabel("Search books")
-                    .accessibilityHint("Enter text to search for books")
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.white)
-                    .accessibilityLabel("Search")
-            }
-            .padding(.horizontal)
-
-            HStack {
-                ForEach(bookVM.filters, id: \ .self) { filter in
-                    Button(action: {
-                        bookVM.selectedFilter = filter
-                    }) {
-                        Text(filter)
-                            .foregroundColor(bookVM.selectedFilter == filter ? .black : .white)
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 15)
-                            .background(bookVM.selectedFilter == filter ? Color.green : Color.gray.opacity(0.3))
-                            .cornerRadius(20)
+        NavigationView {
+            VStack {
+                // Search and Filter Section
+                VStack(spacing: 16) {
+                    HStack {
+                        TextField("Search", text: $bookVM.searchText)
+                            .padding(10)
+                            .background(Color(.systemGray5).opacity(0.2))
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                        
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.white)
                     }
-                    .accessibilityLabel("\(filter) filter")
-                    .accessibilityHint("Show \(filter.lowercased()) books")
-                    .accessibilityAddTraits(bookVM.selectedFilter == filter ? .isSelected : [])
-                }
-            }
-            .padding(.horizontal)
-
-            ScrollView {
-                if bookVM.filteredBooks.isEmpty {
-                    Text("No books found")
-                        .foregroundColor(.gray)
-                        .padding()
-                        .accessibilityLabel("No books found")
-                } else {
-                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
-                        ForEach(bookVM.filteredBooks) { book in
-                            BookCard(title: book.title, author: book.author, status: book.status, color: book.color)
-                                .frame(height: 200)
-                                .accessibilityElement(children: .combine)
-                                .accessibilityLabel("\(book.title) by \(book.author)")
-                                .accessibilityHint("Status: \(book.status)")
+                    .padding(.horizontal)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(bookVM.filters, id: \.self) { filter in
+                                Button(action: {
+                                    bookVM.selectedFilter = filter
+                                }) {
+                                    Text(filter)
+                                        .foregroundColor(bookVM.selectedFilter == filter ? .black : .white)
+                                        .padding(.vertical, 8)
+                                        .padding(.horizontal, 15)
+                                        .background(bookVM.selectedFilter == filter ? Color.green : Color.gray.opacity(0.3))
+                                        .cornerRadius(20)
+                                }
+                            }
                         }
+                        .padding(.horizontal)
                     }
-                    .padding()
                 }
+                
+                if bookVM.isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .scaleEffect(1.5)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } else {
+                    ScrollView {
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 20) {
+                            ForEach(bookVM.filteredBooks) { book in
+                                NavigationLink(destination: BookProfileView(book: book)) {
+                                    BookCard(
+                                        title: book.title,
+                                        author: book.author,
+                                        status: book.status,
+                                        color: book.displayColor,
+                                        visibilityBadge: book.visibilityBadge
+                                    )
+                                    .frame(height: 200)
+                                }
+                            }
+                        }
+                        .padding()
+                    }
+                }
+            }
+            .navigationBarHidden(true)
+            .background(Color.black.edgesIgnoringSafeArea(.all))
+            .onAppear {
+                bookVM.fetchBooks() // Remove the argument
             }
         }
     }
 }
+
+//struct BookCard<Destination: View>: View {
+//    let title: String
+//    let author: String
+//    let status: String
+//    let color: Color
+//    let destination: Destination
+//
+//    var body: some View {
+//        NavigationLink(destination: destination) {
+//            VStack(alignment: .leading, spacing: 5) {
+//                Text(title)
+//                    .font(.title3)
+//                    .fontWeight(.bold)
+//                    .foregroundColor(.white)
+//                    .accessibilityLabel("Title: \(title)")
+//                Text("By \(author)")
+//                    .font(.footnote)
+//                    .foregroundColor(.white.opacity(0.7))
+//                    .accessibilityLabel("Author: \(author)")
+//                Spacer()
+//                Text(status)
+//                    .font(.caption)
+//                    .fontWeight(.bold)
+//                    .foregroundColor(.white)
+//                    .accessibilityLabel("Status: \(status)")
+//            }
+//            .padding()
+//            .frame(maxWidth: .infinity, maxHeight: .infinity)
+//            .background(color.opacity(0.8))
+//            .cornerRadius(12)
+//        }
+//        .buttonStyle(PlainButtonStyle()) // Keeps the custom appearance
+//    }
+//}
+//
 
 struct BookCard: View {
     let title: String
     let author: String
     let status: String
     let color: Color
-
+    let visibilityBadge: String
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text(title)
                 .font(.title3)
                 .fontWeight(.bold)
                 .foregroundColor(.white)
-                .accessibilityLabel("Title: \(title)")
+                .lineLimit(2)
+            
             Text("By \(author)")
                 .font(.footnote)
                 .foregroundColor(.white.opacity(0.7))
-                .accessibilityLabel("Author: \(author)")
+            
             Spacer()
-            Text(status)
-                .font(.caption)
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-                .accessibilityLabel("Status: \(status)")
+            
+            HStack {
+                Text(status)
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                Text(visibilityBadge)
+                    .font(.caption2)
+                    .fontWeight(.medium)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(getBadgeColor(visibilityBadge))
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+            }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(color.opacity(0.8))
         .cornerRadius(12)
     }
-}
-
-struct WriteBookView: View {
-    @Environment(\.dismiss) private var dismiss
-    @State private var title = ""
-    @State private var content = ""
-    @State private var showCancelDialog = false
-
-    var body: some View {
-        
-            ZStack {
-                Color.black.edgesIgnoringSafeArea(.all)
-                
-                VStack(alignment: .leading, spacing: 15) {
-                    TextField("Title", text: $title)
-                        .font(.title2)
-                        .foregroundColor(.white)
-                        .padding(.horizontal)
-                        .padding(.top)
-                        .accessibilityLabel("Book title")
-                        .accessibilityHint("Enter the title of your book")
-
-                    Text(Date(), style: .date)
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                        .padding(.horizontal)
-                        .accessibilityLabel("Creation date")
-
-                    ZStack(alignment: .topLeading) {
-                        TextEditor(text: $content)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color(.systemGray5).opacity(0.2))
-                            .cornerRadius(8)
-                            .padding(.horizontal)
-                            .accessibilityLabel("Book content")
-                            .accessibilityHint("Write your book content here")
-                        
-                        if content.isEmpty {
-                            Text("Type your Book..")
-                                .foregroundColor(.gray)
-                                .padding(.leading, 20)
-                                .padding(.top, 24)
-                                .accessibility(hidden: true)
-                        }
-                    }
-                  //  .frame(height: 250)
-                    
-                    Spacer()
-                }
-                .padding(.top)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
-                        showCancelDialog = true
-                    }
-                    .foregroundColor(.green)
-                    .accessibilityLabel("Cancel writing")
-                    .accessibilityHint("Double tap to show save or delete options")
-                }
-
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Publish") {
-                        if !title.isEmpty {
-                            print("Book Published: \(title)")
-                            dismiss()
-                        }
-                    }
-                    .foregroundColor(title.isEmpty ? .gray : .green)
-                    .disabled(title.isEmpty)
-                    .accessibilityLabel("Publish book")
-                    .accessibilityHint(title.isEmpty ? "Add a title first" : "Double tap to publish your book")
-                }
-            }
-            .confirmationDialog("Select", isPresented: $showCancelDialog) {
-                Button("Save to Draft") {
-                    print("Saved as Draft")
-                    dismiss()
-                }
-
-                Button("Delete", role: .destructive) {
-                    print("Content Deleted")
-                    dismiss()
-                }
-
-                Button("Cancel", role: .cancel) { }
-            }
+    
+    private func getBadgeColor(_ badge: String) -> Color {
+        switch badge {
+        case "Draft": return .gray
+        case "Collab": return .purple
+        case "Published": return .green
+        default: return .blue
         }
     }
+}
 
+//    struct WriteBookView: View {
+//        @Environment(\.dismiss) private var dismiss
+//        @StateObject private var cloudKitVM = CloudKitUserViewModel()
+//        @StateObject private var bookVM = BookViewModel()
+//        @State private var title = ""
+//        @State private var content = ""
+//        @State private var showCancelDialog = false
+//        @State private var navigateToHome = false
+//
+//        func saveBook() {
+//            let container = CKContainer(identifier: "iCloud.com.a.muqlla")
+//            let record = CKRecord(recordType: "Book")
+//
+//            // here important
+//            let authorRecordID = CKRecord.ID(recordName: cloudKitVM.authorName)
+//            let authorReference = CKRecord.Reference(recordID: authorRecordID, action: .none)
+//
+//            record["author"] = authorReference
+//
+//            record["title"] = title
+//            record["content"] = content
+//            record["author"] = authorReference
+//            record["createdAt"] = Date()
+//            record["status"] = "Published"  // Or "Draft" based on your needs
+//            record["isDraft"] = 0
+//            record["collaborators"] = [authorReference]
+//
+//            print("Saving book with title: \(title)")
+//
+//            container.publicCloudDatabase.save(record) { record, error in
+//                DispatchQueue.main.async {
+//                    if let error = error {
+//                        print(" CloudKit save error: \(error.localizedDescription)")
+//                        return
+//                    }
+//                    print("Book saved successfully")
+//                    self.dismiss()
+//                }
+//            }
+//        }
+//
+//        var body: some View {
+//            NavigationView {
+//                ZStack {
+//                    Color.black.edgesIgnoringSafeArea(.all)
+//
+//                    VStack(alignment: .leading, spacing: 15) {
+//                        TextField("Title", text: $title)
+//                            .font(.title2)
+//                            .foregroundColor(.white)
+//                            .padding(.horizontal)
+//                            .padding(.top)
+//                            .accessibilityLabel("Book title")
+//                            .accessibilityHint("Enter the title of your book")
+//
+//                        Text(Date(), style: .date)
+//                            .font(.caption)
+//                            .foregroundColor(.gray)
+//                            .padding(.horizontal)
+//                            .accessibilityLabel("Creation date")
+//
+//                        ZStack(alignment: .topLeading) {
+//                            TextEditor(text: $content)
+//                                .foregroundColor(.white)
+//                                .padding()
+//                                .background(Color(.systemGray5).opacity(0.2))
+//                                .cornerRadius(8)
+//                                .padding(.horizontal)
+//                                .accessibilityLabel("Book content")
+//                                .accessibilityHint("Write your book content here")
+//
+//                            if content.isEmpty {
+//                                Text("Type your Book..")
+//                                    .foregroundColor(.gray)
+//                                    .padding(.leading, 20)
+//                                    .padding(.top, 24)
+//                                    .accessibility(hidden: true)
+//                            }
+//                        }
+//
+//                        Spacer()
+//                    }
+//                    .padding(.top)
+//                }
+//                .navigationBarItems(
+//                    leading: Button("Cancel") {
+//                        showCancelDialog = true
+//                    }
+//                        .foregroundColor(.green)
+//                        .accessibilityLabel("Cancel writing")
+//                        .accessibilityHint("Double tap to show save or delete options"),
+//
+//                    trailing: Button("Publish") {
+//                        if !title.isEmpty {
+//                            saveBook()
+//                        }
+//                    }
+//                        .foregroundColor(title.isEmpty ? .gray : .green)
+//                        .disabled(title.isEmpty)
+//                        .accessibilityLabel("Publish book")
+//                        .accessibilityHint(title.isEmpty ? "Add a title first" : "Double tap to publish your book")
+//                )
+//                .confirmationDialog("Select", isPresented: $showCancelDialog) {
+//                    Button("Save to Draft") {
+//                        print("Saved as Draft")
+//                        dismiss()
+//                    }
+//
+//                    Button("Delete", role: .destructive) {
+//                        print("Content Deleted")
+//                        navigateToHome = true
+//                    }
+//
+//                    Button("Cancel", role: .cancel) { }
+//                }
+//            }
+//        }
+//    }
+
+struct AuthorNameView: View {
+    @StateObject private var viewModel: CloudKitUserViewModel
+    @State private var authorName: String = ""
+    @Binding var showNamePrompt: Bool
+    
+    init(viewModel: CloudKitUserViewModel, showNamePrompt: Binding<Bool>) {
+        _viewModel = StateObject(wrappedValue: viewModel)
+        _showNamePrompt = showNamePrompt
+    }
+    
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 20) {
+                Text("Your name")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                
+                TextField("Enter your name", text: $authorName)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.horizontal)
+                
+                Button("Continue") {
+                    if !authorName.isEmpty {
+                        viewModel.updateAuthorName(authorName)
+                        showNamePrompt = false
+                    }
+                }
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.green)
+                .cornerRadius(10)
+                .disabled(authorName.isEmpty)
+            }
+            .padding()
+            .background(Color.black.edgesIgnoringSafeArea(.all))
+        }
+    }
+}
